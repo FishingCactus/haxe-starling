@@ -38,7 +38,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(!(Std.is(value.stage, Stage)))
          {

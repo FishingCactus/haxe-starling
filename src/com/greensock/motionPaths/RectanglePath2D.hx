@@ -34,7 +34,7 @@ package com.greensock.motionPaths;
          update();
       }
       
-      override public function renderObjectAt(target:Object, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
+      override public function renderObjectAt(target:Dynamic, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
          var length:Float = NaN;
          var xFactor:Float = NaN;

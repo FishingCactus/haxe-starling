@@ -55,7 +55,7 @@ package com.greensock.loading;
       
       public var initThreshold:UInt;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _type = "MP3Loader";

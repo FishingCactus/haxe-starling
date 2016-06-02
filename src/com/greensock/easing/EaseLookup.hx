@@ -2,7 +2,7 @@ package com.greensock.easing;
    class EaseLookup
    {
       
-      private static var _lookup:Object;
+      private static var _lookup:Dynamic;
        
       public function new()
       {

@@ -22,7 +22,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["scrollRect"];
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var p:Dynamic = null;
          var r:Rectangle = null;

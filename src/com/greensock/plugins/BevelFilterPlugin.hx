@@ -16,7 +16,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["bevelFilter"];
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
          _type = BevelFilter;

@@ -61,7 +61,7 @@ package com.greensock.layout;
          _redraw(previewColor);
       }
       
-      public static function createAround(target:DisplayObject, vars:Object = null, ... args) : AutoFitArea
+      public static function createAround(target:DisplayObject, vars:Dynamic = null, ... args) : AutoFitArea
       {
          if(cast(vars == null, Bool) || cast(typeof vars == "string", Bool))
          {
@@ -112,7 +112,7 @@ package com.greensock.layout;
          return _previewColor;
       }
       
-      public function attach(target:DisplayObject, vars:Object = null, ... args) : Void
+      public function attach(target:DisplayObject, vars:Dynamic = null, ... args) : Void
       {
          var shape:Shape = null;
          var bounds:Rectangle = null;
@@ -642,7 +642,7 @@ class AutoFitItem
    
    public var boundsTarget:DisplayObject;
    
-   function new(target:DisplayObject, vars:Object, next:AutoFitItem)
+   function new(target:DisplayObject, vars:Dynamic, next:AutoFitItem)
    {
       super();
       this.target = target;

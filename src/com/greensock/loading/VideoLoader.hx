@@ -56,7 +56,7 @@ package com.greensock.loading;
 
       private var _volume:Float;
 
-      public var metaData:Object;
+      public var metaData:Dynamic;
 
       private var _nc:NetConnection;
 
@@ -98,7 +98,7 @@ package com.greensock.loading;
 
       private var _prevTime:Float;
 
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _type = "VideoLoader";
@@ -335,7 +335,7 @@ package com.greensock.loading;
          _cacheIsDirty = false;
       }
 
-      private function _cuePointHandler(info:Object) : Void
+      private function _cuePointHandler(info:Dynamic) : Void
       {
          if(!_videoPaused)
          {
@@ -521,7 +521,7 @@ package com.greensock.loading;
          }
       }
 
-      private function _metaDataHandler(info:Object) : Void
+      private function _metaDataHandler(info:Dynamic) : Void
       {
          if(cast(this.metaData == null, Bool) || cast(this.metaData.cuePoints == null, Bool))
          {
@@ -667,7 +667,7 @@ package com.greensock.loading;
          dispatchEvent(new Event("auditedSize"));
       }
 
-      public function addASCuePoint(time:Float, name:String = "", parameters:Object = null) : Object
+      public function addASCuePoint(time:Float, name:String = "", parameters:Dynamic = null) : Object
       {
          var prev:CuePoint = _firstCuePoint;
          if(cast(prev != null, Bool) && cast(prev.time > time, Bool))
@@ -1025,7 +1025,7 @@ class CuePoint
 
    public var time:Float;
 
-   public var parameters:Object;
+   public var parameters:Dynamic;
 
    public var name:String;
 
@@ -1035,7 +1035,7 @@ class CuePoint
 
    public var gc:Bool;
 
-   function new(time:Float, name:String, params:Object, prev:CuePoint)
+   function new(time:Float, name:String, params:Dynamic, prev:CuePoint)
    {
       super();
       this.time = time;

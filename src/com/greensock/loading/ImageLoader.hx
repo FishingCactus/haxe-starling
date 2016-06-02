@@ -12,7 +12,7 @@ package com.greensock.loading;
       
       private static var _classActivated:Bool = _activateClass("ImageLoader",ImageLoader,"jpg,jpeg,png,gif,bmp");
        
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _type = "ImageLoader";

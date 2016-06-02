@@ -10,7 +10,7 @@ package com.greensock.motionPaths;
       
       public var cachedProgress:Float;
       
-      public var target:Object;
+      public var target:Dynamic;
       
       public var cachedRawProgress:Float;
       
@@ -22,7 +22,7 @@ package com.greensock.motionPaths;
       
       public var cachedPrev:com.greensock.motionPaths.PathFollower;
       
-      public function new(target:Object, autoRotate:Bool = false, rotationOffset:Float = 0)
+      public function new(target:Dynamic, autoRotate:Bool = false, rotationOffset:Float = 0)
       {
          super();
          this.target = target;

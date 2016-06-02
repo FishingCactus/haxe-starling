@@ -72,7 +72,7 @@ package com.greensock;
       
       private var _repeat:Int = 0;
       
-      public function new(target:Object, duration:Float, vars:Object)
+      public function new(target:Dynamic, duration:Float, vars:Dynamic)
       {
          super(target,duration,vars);
          if(TweenLite.version < 11.2)
@@ -117,7 +117,7 @@ package com.greensock;
          TweenLite.rootFramesTimeline.cachedTimeScale = TweenLite.rootTimeline.cachedTimeScale = n;
       }
       
-      public static function fromTo(target:Object, duration:Float, fromVars:Object, toVars:Object) : TweenMax
+      public static function fromTo(target:Dynamic, duration:Float, fromVars:Dynamic, toVars:Dynamic) : TweenMax
       {
          if(toVars.isGSVars)
          {
@@ -135,7 +135,7 @@ package com.greensock;
          return new TweenMax(target,duration,toVars);
       }
       
-      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Object, toVars:Object, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Dynamic, toVars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          if(toVars.isGSVars)
          {
@@ -158,7 +158,7 @@ package com.greensock;
          changePause(true,tweens,delayedCalls);
       }
       
-      public static function getTweensOf(target:Object) : Array<Int>
+      public static function getTweensOf(target:Dynamic) : Array<Int>
       {
          var i:Int = 0;
          var cnt:Int = 0;
@@ -186,7 +186,7 @@ package com.greensock;
       
       public static function killChildTweensOf(parent:DisplayObjectContainer, complete:Bool = false) : Void
       {
-         var curTarget:Object = null;
+         var curTarget:Dynamic = null;
          var curParent:DisplayObjectContainer = null;
          var a:Array<Int> = getAllTweens();
          var i:Int = a.length;
@@ -228,7 +228,7 @@ package com.greensock;
          });
       }
       
-      public static function isTweening(target:Object) : Bool
+      public static function isTweening(target:Dynamic) : Bool
       {
          var tween:TweenLite = null;
          var a:Array<Int> = getTweensOf(target);
@@ -281,7 +281,7 @@ package com.greensock;
          }
       }
       
-      public static function from(target:Object, duration:Float, vars:Object) : TweenMax
+      public static function from(target:Dynamic, duration:Float, vars:Dynamic) : TweenMax
       {
          if(vars.isGSVars)
          {
@@ -295,7 +295,7 @@ package com.greensock;
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allFrom(targets:Array<Int>, duration:Float, vars:Object, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFrom(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          if(vars.isGSVars)
          {
@@ -335,15 +335,15 @@ package com.greensock;
          changePause(false,tweens,delayedCalls);
       }
       
-      public static function to(target:Object, duration:Float, vars:Object) : TweenMax
+      public static function to(target:Dynamic, duration:Float, vars:Dynamic) : TweenMax
       {
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allTo(targets:Array<Int>, duration:Float, vars:Object, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          var i:Int = 0;
-         var varsDup:Object = null;
+         var varsDup:Dynamic = null;
          var p:String = null;
          var onCompleteProxy:Function = null;
          var onCompleteParamsProxy:Array<Int> = null;
@@ -351,7 +351,7 @@ package com.greensock;
          var a:Array<Int> = [];
          if(vars.isGSVars)
          {
-            var vars:Object = vars.vars;
+            var vars:Dynamic = vars.vars;
          }
          var curDelay:Float = "delay" in vars?cast(Float(vars.delay), Float):cast(0, Float);
          onCompleteProxy = vars.onComplete;
@@ -654,7 +654,7 @@ package com.greensock;
       
       public function setDestination(property:String, value:Dynamic, adjustStartValues:Bool = true) : Void
       {
-         var vars:Object = {};
+         var vars:Dynamic = {};
          vars[property] = value;
          updateTo(vars,!adjustStartValues);
       }
@@ -724,7 +724,7 @@ package com.greensock;
          setTotalTime(this.totalDuration * n,false);
       }
       
-      public function updateTo(vars:Object, resetDuration:Bool = false) : Void
+      public function updateTo(vars:Dynamic, resetDuration:Bool = false) : Void
       {
          var p:Dynamic = null;
          var prevTime:Float = NaN;
@@ -819,7 +819,7 @@ package com.greensock;
       
       public function killProperties(names:Array<Int>) : Void
       {
-         var v:Object = {};
+         var v:Dynamic = {};
          var i:Int = names.length;
          while(--i > -1)
          {

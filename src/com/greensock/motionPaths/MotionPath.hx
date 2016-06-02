@@ -79,7 +79,7 @@ package com.greensock.motionPaths;
          return _rawProgress;
       }
       
-      public function renderObjectAt(target:Object, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
+      public function renderObjectAt(target:Dynamic, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
       }
       
@@ -89,7 +89,7 @@ package com.greensock.motionPaths;
          update();
       }
       
-      public function getFollower(target:Object) : com.greensock.motionPaths.PathFollower
+      public function getFollower(target:Dynamic) : com.greensock.motionPaths.PathFollower
       {
          if(Std.is(target, PathFollower))
          {

@@ -24,7 +24,7 @@ package com.greensock.motionPaths;
          return _radius;
       }
       
-      override public function renderObjectAt(target:Object, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
+      override public function renderObjectAt(target:Dynamic, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
          var angle:Float = progress * Math.PI * 2;
          var m:Matrix = this.transform.matrix;

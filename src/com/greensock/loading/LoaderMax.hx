@@ -48,7 +48,7 @@ package com.greensock.loading;
       
       public var autoLoad:Bool;
       
-      public function new(vars:Object = null)
+      public function new(vars:Dynamic = null)
       {
          var i:Int = 0;
          super(vars);
@@ -78,7 +78,7 @@ package com.greensock.loading;
          return _globalRootLoader != null?_globalRootLoader.getLoader(nameOrURL):null;
       }
       
-      public static function parse(data:Dynamic, vars:Object = null, childrenVars:Object = null) : *
+      public static function parse(data:Dynamic, vars:Dynamic = null, childrenVars:Dynamic = null) : *
       {
          var queue:LoaderMax = null;
          var l:Int = 0;

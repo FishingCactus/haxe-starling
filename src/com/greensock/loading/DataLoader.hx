@@ -13,7 +13,7 @@ package com.greensock.loading;
        
       private var _loader:URLLoader;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _type = "DataLoader";

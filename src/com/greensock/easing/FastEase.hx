@@ -16,7 +16,7 @@ package com.greensock.easing;
       
       public static function activate(easeClasses:Array<Int>) : Void
       {
-         var easeClass:Object = null;
+         var easeClass:Dynamic = null;
          var i:Int = easeClasses.length;
          while(i--)
          {

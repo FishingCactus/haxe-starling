@@ -13,7 +13,7 @@ package com.greensock.plugins;
       
       private var _changeY:Float;
       
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _startX:Float;
       
@@ -26,7 +26,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["scaleX","scaleY","width","height"];
       }
       
-      override public function killProps(lookup:Object) : Void
+      override public function killProps(lookup:Dynamic) : Void
       {
          var i:Int = this.overwriteProps.length;
          while(i--)
@@ -39,7 +39,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(!target.hasOwnProperty("scaleX"))
          {

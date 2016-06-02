@@ -22,7 +22,7 @@ package com.greensock.plugins;
       
       private var _circle:CirclePath2D;
       
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _autoRemove:Bool;
       
@@ -37,7 +37,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["x","y"];
       }
       
-      override public function killProps(lookup:Object) : Void
+      override public function killProps(lookup:Dynamic) : Void
       {
          super.killProps(lookup);
          if(cast("x" in lookup, Bool) || cast("y" in lookup, Bool))
@@ -64,7 +64,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(cast(!("path" in value), Bool) || cast(!(Std.is(value.path, CirclePath2D)), Bool))
          {

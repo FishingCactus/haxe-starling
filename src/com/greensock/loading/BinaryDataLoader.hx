@@ -4,7 +4,7 @@ package com.greensock.loading;
       
       private static var _classActivated:Bool = _activateClass("BinaryDataLoader",BinaryDataLoader,"zip");
        
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _loader.dataFormat = "binary";

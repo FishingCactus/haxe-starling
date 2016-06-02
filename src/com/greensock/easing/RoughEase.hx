@@ -7,7 +7,7 @@ package com.greensock.easing;
       
       private static var _count:UInt = 0;
       
-      private static var _lookup:Object = {};
+      private static var _lookup:Dynamic = {};
        
       private var _first:EasePoint;
       
@@ -21,7 +21,7 @@ package com.greensock.easing;
          var y:Float = NaN;
          var bump:Float = NaN;
          var invX:Float = NaN;
-         var obj:Object = null;
+         var obj:Dynamic = null;
          super();
          if(name == "")
          {

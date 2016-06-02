@@ -19,7 +19,7 @@ package com.greensock.plugins;
       
       private var _setHeight:Bool;
       
-      private var _target:Object;
+      private var _target:Dynamic;
       
       public function new()
       {
@@ -29,7 +29,7 @@ package com.greensock.plugins;
          this.round = true;
       }
       
-      override public function killProps(lookup:Object) : Void
+      override public function killProps(lookup:Dynamic) : Void
       {
          super.killProps(lookup);
          if(cast(_tweens.length == 0, Bool) || cast("setActualSize" in lookup, Bool))
@@ -38,7 +38,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
          _hasSetSize = cast("setActualSize" in _target, Bool);

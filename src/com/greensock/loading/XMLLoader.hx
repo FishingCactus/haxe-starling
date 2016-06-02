@@ -22,7 +22,7 @@ package com.greensock.loading;
 		public var progress(get, null):Float;
 
       
-      private static var _varTypes:Object = {
+      private static var _varTypes:Dynamic = {
          "skipFailed":true,
          "skipPaused":true,
          "autoLoad":false,
@@ -73,7 +73,7 @@ package com.greensock.loading;
       
       private var _loadingQueue:com.greensock.loading.LoaderMax;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _preferEstimatedBytesInAudit = true;
@@ -88,7 +88,7 @@ package com.greensock.loading;
          var replaceText:Array<Int> = null;
          var i:Int = 0;
          var loaderClass:Class = null;
-         var parsedVars:Object = null;
+         var parsedVars:Dynamic = null;
          var loader:LoaderCore = null;
          var p:Dynamic = null;
          var nodeName:String = cast(xml.name(), String).toLowerCase();
@@ -156,7 +156,7 @@ package com.greensock.loading;
          var value:String = null;
          var domain:ApplicationDomain = null;
          var attribute:Xml = null;
-         var v:Object = {"rawXML":xml};
+         var v:Dynamic = {"rawXML":xml};
          var list:XMLList = xml.attributes();
          for( attribute in list )
          {

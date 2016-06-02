@@ -9,7 +9,7 @@ package com.greensock.plugins;
       
       public static inline var API:Float = 1;
        
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _ignoreVisible:Bool;
       
@@ -20,13 +20,13 @@ package com.greensock.plugins;
          this.overwriteProps = ["alpha","visible"];
       }
       
-      override public function killProps(lookup:Object) : Void
+      override public function killProps(lookup:Dynamic) : Void
       {
          super.killProps(lookup);
          _ignoreVisible = cast("visible" in lookup, Bool);
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
          addTween(target,"alpha",target.alpha,value,"alpha");

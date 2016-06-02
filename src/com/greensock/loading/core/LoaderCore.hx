@@ -31,9 +31,9 @@ package com.greensock.loading.core;
 		public var status(get, null):Int;
 
       
-      private static var _types:Object = {};
+      private static var _types:Dynamic = {};
       
-      private static var _listenerTypes:Object = {
+      private static var _listenerTypes:Dynamic = {
          "onOpen":"open",
          "onInit":"init",
          "onComplete":"complete",
@@ -56,7 +56,7 @@ package com.greensock.loading.core;
       
       private static var _isLocal:Bool;
       
-      private static var _extensions:Object = {};
+      private static var _extensions:Dynamic = {};
       
       private static var _globalRootLoader:LoaderMax;
       
@@ -80,7 +80,7 @@ package com.greensock.loading.core;
       
       private var _dispatchProgress:Bool;
       
-      public var vars:Object;
+      public var vars:Dynamic;
       
       private var _cachedBytesTotal:UInt;
       
@@ -96,7 +96,7 @@ package com.greensock.loading.core;
       
       public var autoDispose:Bool;
       
-      public function new(vars:Object = null)
+      public function new(vars:Dynamic = null)
       {
          var p:Dynamic = null;
          super();
@@ -157,7 +157,7 @@ package com.greensock.loading.core;
       
       private function _errorHandler(event:Event) : Void
       {
-         var target:Object = event.target;
+         var target:Dynamic = event.target;
          target = cast(Std.is(event, LoaderEvent), Bool) && cast(this.hasOwnProperty("getChildren"), Bool)?event.target:this;
          var text:String = "";
          if(cast(event.hasOwnProperty("error"), Bool) && cast(Std.is(Object(event).error, Error), Bool))
@@ -184,7 +184,7 @@ package com.greensock.loading.core;
       
       private function _failHandler(event:Event, dispatchError:Bool = true) : Void
       {
-         var target:Object = null;
+         var target:Dynamic = null;
          _dump(0,LoaderStatus.FAILED);
          if(dispatchError)
          {
@@ -406,7 +406,7 @@ package com.greensock.loading.core;
       private function _passThroughEvent(event:Event) : Void
       {
          var type:String = event.type;
-         var target:Object = this;
+         var target:Dynamic = this;
          if(this.hasOwnProperty("getChildren"))
          {
             if(Std.is(event, LoaderEvent))

@@ -26,7 +26,7 @@ package com.greensock.loading.display;
 		public var rawContent(null, set):Dynamic;
 
       
-      private static var _transformProps:Object = {
+      private static var _transformProps:Dynamic = {
          "x":1,
          "y":1,
          "z":1,
@@ -293,7 +293,7 @@ package com.greensock.loading.display;
       private function _update() : Void
       {
          var mc:DisplayObject = null;
-         var nativeBounds:Object = null;
+         var nativeBounds:Dynamic = null;
          var contentWidth:Float = NaN;
          var contentHeight:Float = NaN;
          var w:Float = NaN;

@@ -19,9 +19,9 @@ package com.greensock;
        
       private var _endCaps:Array<Int>;
       
-      private var _labels:Object;
+      private var _labels:Dynamic;
       
-      public function new(vars:Object = null)
+      public function new(vars:Dynamic = null)
       {
          super(vars);
          _endCaps = [null,null];
@@ -354,7 +354,7 @@ package com.greensock;
          return false;
       }
       
-      public function getTweensOf(target:Object, nested:Bool = true) : Array<Int>
+      public function getTweensOf(target:Dynamic, nested:Bool = true) : Array<Int>
       {
          var i:Int = 0;
          var tweens:Array<Int> = getChildren(nested,true,false);
@@ -432,7 +432,7 @@ package com.greensock;
          setTotalTime(parseTimeOrLabel(timeOrLabel),suppressEvents);
       }
       
-      public function killTweensOf(target:Object, nested:Bool = true, vars:Object = null) : Bool
+      public function killTweensOf(target:Dynamic, nested:Bool = true, vars:Dynamic = null) : Bool
       {
          var tween:TweenLite = null;
          var tweens:Array<Int> = getTweensOf(target,nested);

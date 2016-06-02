@@ -5,15 +5,15 @@ package com.greensock.loading.data;
    class VideoLoaderVars
    {
 
-		public var vars(get, null):Object;
+		public var vars(get, null):Dynamic;
 		public var isGSVars(get, null):Bool;
 
       
       public static inline var version:Float = 1.23;
        
-      private var _vars:Object;
+      private var _vars:Dynamic;
       
-      public function new(vars:Object = null)
+      public function new(vars:Dynamic = null)
       {
          var p:Dynamic = null;
          super();

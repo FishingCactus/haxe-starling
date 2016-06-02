@@ -9,7 +9,7 @@ package com.greensock.plugins;
       
       public static inline var API:Float = 1;
        
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _initVal:Bool;
       
@@ -24,7 +24,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["visible"];
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
          _tween = tween;

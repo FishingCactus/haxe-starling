@@ -11,7 +11,7 @@ package com.greensock.plugins;
       
       private static inline var _RAD2DEG:Float = 180 / Math.PI;
        
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _quaternions:Array<Int>;
       
@@ -23,7 +23,7 @@ package com.greensock.plugins;
          this.overwriteProps = [];
       }
       
-      override public function killProps(lookup:Object) : Void
+      override public function killProps(lookup:Dynamic) : Void
       {
          for(var i:Int = _quaternions.length - 1; i > -1; i--)
          {
@@ -69,7 +69,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var p:Dynamic = null;
          if(value == null)
@@ -83,11 +83,11 @@ package com.greensock.plugins;
          return true;
       }
       
-      public function initQuaternion(start:Object, end:Object, propName:String) : Void
+      public function initQuaternion(start:Dynamic, end:Dynamic, propName:String) : Void
       {
          var angle:Float = NaN;
-         var q1:Object = null;
-         var q2:Object = null;
+         var q1:Dynamic = null;
+         var q2:Dynamic = null;
          var x1:Float = NaN;
          var x2:Float = NaN;
          var y1:Float = NaN;

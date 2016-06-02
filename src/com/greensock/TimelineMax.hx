@@ -31,7 +31,7 @@ package com.greensock;
       
       private var _repeat:Int;
       
-      public function new(vars:Object = null)
+      public function new(vars:Dynamic = null)
       {
          super(vars);
          _repeat = cast(this.vars.repeat, Bool)?cast(Float(this.vars.repeat), Int):cast(0, Int);
@@ -328,7 +328,7 @@ package com.greensock;
          return cb;
       }
       
-      public function tweenFromTo(fromTimeOrLabel:Dynamic, toTimeOrLabel:Dynamic, vars:Object = null) : TweenLite
+      public function tweenFromTo(fromTimeOrLabel:Dynamic, toTimeOrLabel:Dynamic, vars:Dynamic = null) : TweenLite
       {
          var tl:TweenLite = tweenTo(toTimeOrLabel,vars);
          tl.vars.onInitParams[2] = parseTimeOrLabel(fromTimeOrLabel);
@@ -362,11 +362,11 @@ package com.greensock;
          _dispatcher.addEventListener(type,listener,useCapture,priority,useWeakReference);
       }
       
-      public function tweenTo(timeOrLabel:Dynamic, vars:Object = null) : TweenLite
+      public function tweenTo(timeOrLabel:Dynamic, vars:Dynamic = null) : TweenLite
       {
          var p:Dynamic = null;
          var tl:TweenLite = null;
-         var varsCopy:Object = {
+         var varsCopy:Dynamic = {
             "ease":easeNone,
             "overwrite":2,
             "useFrames":this.useFrames,

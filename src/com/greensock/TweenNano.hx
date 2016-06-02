@@ -7,7 +7,7 @@ package com.greensock;
    class TweenNano
    {
       
-      private static var _reservedProps:Object = {
+      private static var _reservedProps:Dynamic = {
          "ease":1,
          "delay":1,
          "useFrames":1,
@@ -42,7 +42,7 @@ package com.greensock;
       
       public var startTime:Float;
       
-      public var target:Object;
+      public var target:Dynamic;
       
       public var useFrames:Bool;
       
@@ -50,9 +50,9 @@ package com.greensock;
       
       public var gc:Bool;
       
-      public var vars:Object;
+      public var vars:Dynamic;
       
-      public function new(target:Object, duration:Float, vars:Object)
+      public function new(target:Dynamic, duration:Float, vars:Dynamic)
       {
          super();
          if(!_tnInitted)
@@ -143,7 +143,7 @@ package com.greensock;
          return -1 * (t = t / d) * (t - 2);
       }
       
-      public static function from(target:Object, duration:Float, vars:Object) : TweenNano
+      public static function from(target:Dynamic, duration:Float, vars:Dynamic) : TweenNano
       {
          vars.runBackwards = true;
          if(!("immediateRender" in vars))
@@ -153,12 +153,12 @@ package com.greensock;
          return new TweenNano(target,duration,vars);
       }
       
-      public static function to(target:Object, duration:Float, vars:Object) : TweenNano
+      public static function to(target:Dynamic, duration:Float, vars:Dynamic) : TweenNano
       {
          return new TweenNano(target,duration,vars);
       }
       
-      public static function killTweensOf(target:Object, complete:Bool = false) : Void
+      public static function killTweensOf(target:Dynamic, complete:Bool = false) : Void
       {
          var a:Array<Int> = null;
          var i:Int = 0;

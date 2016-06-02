@@ -33,7 +33,7 @@ package com.greensock.loading.core;
       
       private var _httpStatus:Int;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(vars);
          _request =cast(Std.is( urlOrRequest, URLRequest?urlOrRequest), URLRequest:new URLRequest(urlOrRequest));

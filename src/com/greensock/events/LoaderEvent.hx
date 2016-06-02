@@ -4,7 +4,7 @@ package com.greensock.events;
    class LoaderEvent extends Event
    {
 
-		public var target(get, null):Object;
+		public var target(get, null):Dynamic;
 
       
       public static inline var CHILD_FAIL:String = "childFail";
@@ -43,7 +43,7 @@ package com.greensock.events;
       
       public static inline var UNLOAD:String = "unload";
        
-      private var _target:Object;
+      private var _target:Dynamic;
       
       public var data;
       
@@ -51,7 +51,7 @@ package com.greensock.events;
       
       public var text:String;
       
-      public function new(type:String, target:Object, text:String = "", data:Dynamic = null)
+      public function new(type:String, target:Dynamic, text:String = "", data:Dynamic = null)
       {
          super(type,false,false);
          _target = target;

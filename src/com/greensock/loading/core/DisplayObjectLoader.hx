@@ -38,7 +38,7 @@ package com.greensock.loading.core;
       
       private var _loader:Loader;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _refreshLoader(false);

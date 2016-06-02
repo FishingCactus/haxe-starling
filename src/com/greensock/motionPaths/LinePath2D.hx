@@ -125,7 +125,7 @@ package com.greensock.motionPaths;
          insertMultiplePoints(points,_points.length);
       }
       
-      override public function renderObjectAt(target:Object, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
+      override public function renderObjectAt(target:Dynamic, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
          var pathProg:Float = NaN;
          var px:Float = NaN;
@@ -265,7 +265,7 @@ package com.greensock.motionPaths;
          }
       }
       
-      public function snap(target:Object, autoRotate:Bool = false, rotationOffset:Float = 0) : PathFollower
+      public function snap(target:Dynamic, autoRotate:Bool = false, rotationOffset:Float = 0) : PathFollower
       {
          return this.addFollower(target,getClosestProgress(target),autoRotate,rotationOffset);
       }
@@ -297,7 +297,7 @@ package com.greensock.motionPaths;
          _organize();
       }
       
-      public function getClosestProgress(target:Object) : Float
+      public function getClosestProgress(target:Dynamic) : Float
       {
          var closestPath:PathPoint = null;
          var dxTarg:Float = NaN;

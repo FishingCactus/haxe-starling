@@ -137,11 +137,11 @@ package com.greensock.plugins;
          return applyMatrix([1,0,0,0,n,0,1,0,0,n,0,0,1,0,n,0,0,0,1,0,0,0,0,0,1],m);
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
          _type = ColorMatrixFilter;
-         var cmf:Object = value;
+         var cmf:Dynamic = value;
          initFilter({
             "remove":value.remove,
             "index":value.index,

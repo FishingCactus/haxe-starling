@@ -76,7 +76,7 @@ package com.greensock.plugins;
          _transform.matrix = _matrix;
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var ratioX:Float = NaN;
          var ratioY:Float = NaN;

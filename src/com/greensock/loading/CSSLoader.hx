@@ -8,7 +8,7 @@ package com.greensock.loading;
       
       private static var _classActivated:Bool = _activateClass("CSSLoader",CSSLoader,"css");
        
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _loader.dataFormat = "text";

@@ -19,7 +19,7 @@ package com.greensock.plugins;
          this.onInitAllProps = _initAllProps;
       }
       
-      public function add(object:Object, propName:String, start:Float, change:Float) : Void
+      public function add(object:Dynamic, propName:String, start:Float, change:Float) : Void
       {
          addTween(object,propName,start,start + change,propName);
          this.overwriteProps[this.overwriteProps.length] = propName;
@@ -45,7 +45,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _tween = tween;
          this.overwriteProps = this.overwriteProps.concat(cast(value, Array<Int>));

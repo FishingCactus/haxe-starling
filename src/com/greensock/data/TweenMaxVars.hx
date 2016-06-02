@@ -31,7 +31,7 @@ Std.is(
       
       public function setSize(width:Float = NaN, height:Float = NaN) : TweenMaxVars
       {
-         var values:Object = {};
+         var values:Dynamic = {};
          if(!isNaN(width))
          {
             values.width = width;
@@ -53,7 +53,7 @@ Std.is(
          return _set("useFrames",value,false);
       }
       
-      public function transformAroundCenter(props:Object) : TweenMaxVars
+      public function transformAroundCenter(props:Dynamic) : TweenMaxVars
       {
          return _set("transformAroundCenter",props,true);
       }
@@ -69,7 +69,7 @@ Std.is(
          return _set("overwrite",value,false);
       }
       
-      public function quaternions(values:Object) : TweenMaxVars
+      public function quaternions(values:Dynamic) : TweenMaxVars
       {
          return _set("quaternions",values,true);
       }
@@ -86,7 +86,7 @@ Std.is(
       
       public function bevelFilter(distance:Float = 4, angle:Float = 45, highlightColor:UInt = 16777215, highlightAlpha:Float = 0.5, shadowColor:UInt = 0, shadowAlpha:Float = 0.5, blurX:Float = 4, blurY:Float = 4, strength:Float = 1, quality:Int = 2, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenMaxVars
       {
-         var filter:Object = {
+         var filter:Dynamic = {
             "distance":distance,
             "angle":angle,
             "highlightColor":highlightColor,
@@ -107,7 +107,7 @@ Std.is(
          return _set("bevelFilter",filter,true);
       }
       
-      public function shortRotation(values:Object) : TweenMaxVars
+      public function shortRotation(values:Dynamic) : TweenMaxVars
       {
          if(typeof values == "number")
          {
@@ -123,7 +123,7 @@ Std.is(
       
       public function colorMatrixFilter(colorize:UInt = 16777215, amount:Float = 1, saturation:Float = 1, contrast:Float = 1, brightness:Float = 1, hue:Float = 0, threshold:Float = -1, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenMaxVars
       {
-         var filter:Object = {
+         var filter:Dynamic = {
             "saturation":saturation,
             "contrast":contrast,
             "brightness":brightness,
@@ -159,7 +159,7 @@ Std.is(
          },true);
       }
       
-      public function orientToBezier(values:Object = null) : TweenMaxVars
+      public function orientToBezier(values:Dynamic = null) : TweenMaxVars
       {
          return _set("orientToBezier",values == null?true:values,false);
       }
@@ -248,7 +248,7 @@ Std.is(
          return _set("onReverseCompleteListener",func);
       }
       
-      public function throwProps(props:Object) : TweenMaxVars
+      public function throwProps(props:Dynamic) : TweenMaxVars
       {
          return _set("throwProps",props,true);
       }
@@ -263,7 +263,7 @@ Std.is(
          return prop("height",value,relative);
       }
       
-      public function transformAroundPoint(point:Point, props:Object) : TweenMaxVars
+      public function transformAroundPoint(point:Point, props:Dynamic) : TweenMaxVars
       {
          props.point = point;
          return _set("transformAroundPoint",props,true);
@@ -302,7 +302,7 @@ Std.is(
       
       public function blurFilter(blurX:Float, blurY:Float, quality:Int = 2, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenMaxVars
       {
-         var filter:Object = {
+         var filter:Dynamic = {
             "blurX":blurX,
             "blurY":blurY,
             "quality":quality,
@@ -334,7 +334,7 @@ Std.is(
       
       public function dropShadowFilter(distance:Float = 4, blurX:Float = 4, blurY:Float = 4, alpha:Float = 1, angle:Float = 45, color:UInt = 0, strength:Float = 2, inner:Bool = false, knockout:Bool = false, hideObject:Bool = false, quality:UInt = 2, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenMaxVars
       {
-         var filter:Object = {
+         var filter:Dynamic = {
             "distance":distance,
             "blurX":blurX,
             "blurY":blurY,
@@ -359,7 +359,7 @@ Std.is(
       public function colorTransform(tint:Float = NaN, tintAmount:Float = NaN, exposure:Float = NaN, brightness:Float = NaN, redMultiplier:Float = NaN, greenMultiplier:Float = NaN, blueMultiplier:Float = NaN, alphaMultiplier:Float = NaN, redOffset:Float = NaN, greenOffset:Float = NaN, blueOffset:Float = NaN, alphaOffset:Float = NaN) : TweenMaxVars
       {
          var p:Dynamic = null;
-         var values:Object = {
+         var values:Dynamic = {
             "tint":tint,
             "tintAmount":(!!isNaN(tint)?NaN:tintAmount),
             "exposure":exposure,
@@ -389,7 +389,7 @@ Std.is(
          return prop("scaleY",value,relative);
       }
       
-      public function transformMatrix(properties:Object) : TweenMaxVars
+      public function transformMatrix(properties:Dynamic) : TweenMaxVars
       {
          return _set("transformMatrix",properties,true);
       }
@@ -410,7 +410,7 @@ Std.is(
          return prop("y",y,relative);
       }
       
-      public function scrollRect(props:Object) : TweenMaxVars
+      public function scrollRect(props:Dynamic) : TweenMaxVars
       {
          return _set("scrollRect",props,true);
       }
@@ -455,7 +455,7 @@ Std.is(
       
       public function glowFilter(blurX:Float = 10, blurY:Float = 10, color:UInt = 16777215, alpha:Float = 1, strength:Float = 2, inner:Bool = false, knockout:Bool = false, quality:UInt = 2, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenMaxVars
       {
-         var filter:Object = {
+         var filter:Dynamic = {
             "blurX":blurX,
             "blurY":blurY,
             "color":color,
@@ -479,7 +479,7 @@ Std.is(
          return _set("bezierThrough",values,true);
       }
       
-      public function physicsProps(values:Object) : TweenMaxVars
+      public function physicsProps(values:Dynamic) : TweenMaxVars
       {
          return _set("physicsProps",values,true);
       }
@@ -510,7 +510,7 @@ Std.is(
          return _set("frameBackward",frame,true);
       }
       
-      public function dynamicProps(props:Object, params:Object = null) : TweenMaxVars
+      public function dynamicProps(props:Dynamic, params:Dynamic = null) : TweenMaxVars
       {
          if(params != null)
          {
@@ -519,7 +519,7 @@ Std.is(
          return _set("dynamicProps",props,true);
       }
       
-      public function hexColors(values:Object) : TweenMaxVars
+      public function hexColors(values:Dynamic) : TweenMaxVars
       {
          return _set("hexColors",values,true);
       }

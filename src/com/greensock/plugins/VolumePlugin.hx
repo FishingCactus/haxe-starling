@@ -10,7 +10,7 @@ package com.greensock.plugins;
       
       public static inline var API:Float = 1;
        
-      private var _target:Object;
+      private var _target:Dynamic;
       
       private var _st:SoundTransform;
       
@@ -21,7 +21,7 @@ package com.greensock.plugins;
          this.overwriteProps = ["volume"];
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(cast(isNaN(value), Bool) || cast(target.hasOwnProperty("volume"), Bool) || cast(!target.hasOwnProperty("soundTransform"), Bool))
          {

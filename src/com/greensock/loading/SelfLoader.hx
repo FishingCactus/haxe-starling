@@ -10,7 +10,7 @@ package com.greensock.loading;
        
       private var _loaderInfo:LoaderInfo;
       
-      public function new(self:DisplayObject, vars:Object = null)
+      public function new(self:DisplayObject, vars:Dynamic = null)
       {
          super(self.loaderInfo.url,vars);
          _type = "SelfLoader";

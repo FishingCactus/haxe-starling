@@ -41,7 +41,7 @@ package com.greensock.loading;
       
       private var _lastPTUncaughtError:Event;
       
-      public function new(urlOrRequest:Dynamic, vars:Object = null)
+      public function new(urlOrRequest:Dynamic, vars:Dynamic = null)
       {
          super(urlOrRequest,vars);
          _preferEstimatedBytesInAudit = true;
@@ -109,7 +109,7 @@ package com.greensock.loading;
       
       public function getClass(className:String) : Class
       {
-         var result:Object = null;
+         var result:Dynamic = null;
          var loaders:Array<Int> = null;
          var i:Int = 0;
          if(cast(_content == null, Bool) || cast(_scriptAccessDenied, Bool))
@@ -324,7 +324,7 @@ package com.greensock.loading;
          var awaitingLoad:Bool = false;
          var tempContent:DisplayObject = null;
          var className:String = null;
-         var rslPreloader:Object = null;
+         var rslPreloader:Dynamic = null;
          if(_stealthMode)
          {
             _initted = true;

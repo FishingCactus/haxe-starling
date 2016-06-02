@@ -66,7 +66,7 @@ package com.greensock.plugins;
          }
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(cast(!(Std.is(target, Vector<Float>)), Bool) || cast(!(Std.is(value, Vector<Float>)), Bool))
          {

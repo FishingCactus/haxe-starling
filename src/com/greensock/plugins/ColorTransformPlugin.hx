@@ -14,7 +14,7 @@ package com.greensock.plugins;
          this.propName = "colorTransform";
       }
       
-      override public function onInitTween(target:Object, value:Dynamic, tween:TweenLite) : Bool
+      override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var start:ColorTransform = null;
          var p:Dynamic = null;
