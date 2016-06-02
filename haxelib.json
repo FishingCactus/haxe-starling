@@ -1,0 +1,10 @@
+{
+	"name": "greensock",
+	"url": "",
+	"license": "",
+	"tags": [],
+	"description": "Port to haxe of Greensock tween Library",
+	"version": "0.0.0",
+	"releasenote": "",
+	"contributors": [ "" ]
+}
