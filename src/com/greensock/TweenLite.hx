@@ -35,7 +35,7 @@ package com.greensock;
 
       public static var rootFrame:Float = Math.NaN;
 
-      public static var killDelayedCallsTo: Dynamic -> Bool -> Null<Dynamic> -> Void  = TweenLite.killTweensOf;
+      public static var killDelayedCallsTo: Dynamic -> ?Bool -> ?Dynamic -> Void  = TweenLite.killTweensOf;
 
       private static var _reservedProps:Array<String> = [
          "ease",
