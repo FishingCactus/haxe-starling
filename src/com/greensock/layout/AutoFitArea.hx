@@ -53,7 +53,7 @@ package com.greensock.layout;
          super.y = y;
          if(parent == null)
          {
-            throw new Error("AutoFitArea parent cannot be null");
+            throw new openfl.errors.Error("AutoFitArea parent cannot be null");
          }
          _parent = parent;
          _width = width;
@@ -118,7 +118,7 @@ package com.greensock.layout;
          var bounds:Rectangle = null;
          if(target.parent != _parent)
          {
-            throw new Error("The parent of the DisplayObject " + target.name + " added to AutoFitArea " + this.name + " doesn\'t share the same parent.");
+            throw new openfl.errors.Error("The parent of the DisplayObject " + target.name + " added to AutoFitArea " + this.name + " doesn\'t share the same parent.");
          }
          if(cast(vars == null, Bool) || cast(typeof vars == "string", Bool))
          {

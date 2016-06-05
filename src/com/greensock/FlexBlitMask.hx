@@ -102,7 +102,7 @@ package com.greensock;
          super();
          if(cast(width < 0, Bool) || cast(height < 0, Bool))
          {
-            throw new Error("A FlexBlitMask cannot have a negative width or height.");
+            throw new openfl.errors.Error("A FlexBlitMask cannot have a negative width or height.");
          }
          _width = width;
          _height = height;
@@ -133,7 +133,7 @@ package com.greensock;
       {
          if(value != 0)
          {
-            throw new Error("Cannot set the rotation of a FlexBlitMask to a non-zero number. FlexBlitMasks should remain unrotated.");
+            throw new openfl.errors.Error("Cannot set the rotation of a FlexBlitMask to a non-zero number. FlexBlitMasks should remain unrotated.");
          }
       }
       
@@ -397,7 +397,7 @@ package com.greensock;
          }
          if(cast(width < 0, Bool) || cast(height < 0, Bool))
          {
-            throw new Error("A FlexBlitMask cannot have a negative width or height.");
+            throw new openfl.errors.Error("A FlexBlitMask cannot have a negative width or height.");
          }
          if(_bd != null)
          {

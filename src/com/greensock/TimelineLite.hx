@@ -328,7 +328,7 @@ package com.greensock;
          {
             if(!(timeOrLabel in _labels))
             {
-               throw new Error("TimelineLite error: the " + timeOrLabel + " label was not found.");
+               throw new openfl.errors.Error("TimelineLite error: the " + timeOrLabel + " label was not found.");
             }
             return getLabelTime(cast(timeOrLabel, String));
          }

@@ -108,7 +108,7 @@ package com.greensock.loading;
          {
             return data, LoaderCore);
          }
-         throw new Error("LoaderMax could not parse " + data + ". Don\'t forget to use LoaderMax.activate() to activate the necessary types of loaders.");
+         throw new openfl.errors.Error("LoaderMax could not parse " + data + ". Don\'t forget to use LoaderMax.activate() to activate the necessary types of loaders.");
       }
       
       public static function registerFileType(extensions:String, loaderClass:Class) : Void

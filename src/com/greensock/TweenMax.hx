@@ -77,7 +77,7 @@ package com.greensock;
          super(target,duration,vars);
          if(TweenLite.version < 11.2)
          {
-            throw new Error("TweenMax error! Please update your TweenLite class or try deleting your ASO files. TweenMax requires a more recent version. Download updates at http://www.TweenMax.com.");
+            throw new openfl.errors.Error("TweenMax error! Please update your TweenLite class or try deleting your ASO files. TweenMax requires a more recent version. Download updates at http://www.TweenMax.com.");
          }
          this.yoyo = cast(this.vars.yoyo, Bool);
          _repeat = cast(this.vars.repeat, UInt);

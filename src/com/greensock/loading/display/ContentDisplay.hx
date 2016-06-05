@@ -154,7 +154,7 @@ package com.greensock.loading.display;
          }
          if(!_loader.hasOwnProperty("setContentDisplay"))
          {
-            throw new Error("Incompatible loader used for a ContentDisplay");
+            throw new openfl.errors.Error("Incompatible loader used for a ContentDisplay");
          }
          this.name = _loader.name;
          for(p in _transformProps)

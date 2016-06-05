@@ -25,13 +25,12 @@ package com.greensock;
 
       public function new()
       {
-         super();
       }
 
       public static function getGlobalPaused(tween:TweenCore) : Bool
       {
          var paused:Bool = false;
-         while(tween)
+         while(tween != null)
          {
             if(tween.cachedPaused)
             {
@@ -47,7 +46,7 @@ package com.greensock;
       {
          if(TweenLite.version < 11.6)
          {
-            throw new Error("Warning: Your TweenLite class needs to be updated to work with OverwriteManager (or you may need to clear your ASO files). Please download and install the latest version from http://www.tweenlite.com.");
+            throw new openfl.errors.Error("Warning: Your TweenLite class needs to be updated to work with OverwriteManager (or you may need to clear your ASO files). Please download and install the latest version from http://www.tweenlite.com.");
          }
          TweenLite.overwriteManager = OverwriteManager;
          mode = defaultMode;
@@ -55,16 +54,16 @@ package com.greensock;
          return mode;
       }
 
-      public static function manageOverwrites(tween:TweenLite, props:Dynamic, targetTweens:Array<Int>, mode:Int) : Bool
+      public static function manageOverwrites(tween:TweenLite, props:Dynamic, targetTweens:Array<TweenLite>, mode:Int) : Bool
       {
          var i:Int = 0;
          var changed:Bool = false;
          var curTween:TweenLite = null;
          var l:Int = 0;
-         var combinedTimeScale:Float = NaN;
-         var combinedStartTime:Float = NaN;
+         var combinedTimeScale:Float = Math.NaN;
+         var combinedStartTime:Float = Math.NaN;
          var cousin:TweenCore = null;
-         var cousinStartTime:Float = NaN;
+         var cousinStartTime:Float = Math.NaN;
          var timeline:SimpleTimeline = null;
          if(mode >= 4)
          {
@@ -87,8 +86,8 @@ package com.greensock;
             return changed;
          }
          var startTime:Float = tween.cachedStartTime + 1.0e-10;
-         var overlaps:Array<Int> = [];
-         var cousins:Array<Int> = [];
+         var overlaps:Array<TweenLite> = [];
+         var cousins:Array<TweenLite> = [];
          var cCount:Int = 0;
          var oCount:Int = 0;
          i = targetTweens.length;
@@ -104,7 +103,11 @@ package com.greensock;
                      cousins[cCount++] = curTween;
                   }
                }
-               else if(cast(curTween.cachedStartTime <= startTime, Bool) && cast(curTween.cachedStartTime + curTween.totalDuration + 1.0e-10 > startTime, Bool) && cast(!curTween.cachedPaused, Bool) && cast(!(Bool(tween.cachedDuration == 0) && Bool(startTime - curTween.cachedStartTime <= 2.0e-10)), Bool))
+               else if(
+                   (curTween.cachedStartTime <= startTime)
+                   && (curTween.cachedStartTime + curTween.totalDuration + 1.0e-10 > startTime)
+                    && (!curTween.cachedPaused)
+                    && (!((tween.cachedDuration == 0) && (startTime - curTween.cachedStartTime <= 2.0e-10))))
                {
                   overlaps[oCount++] = curTween;
                }
@@ -115,7 +118,7 @@ package com.greensock;
             combinedTimeScale = tween.cachedTimeScale;
             combinedStartTime = startTime;
             timeline = tween.timeline;
-            while(timeline)
+            while(timeline != null)
             {
                combinedTimeScale = combinedTimeScale * timeline.cachedTimeScale;
                combinedStartTime = combinedStartTime + timeline.cachedStartTime;
@@ -129,16 +132,17 @@ package com.greensock;
                combinedTimeScale = cousin.cachedTimeScale;
                combinedStartTime = cousin.cachedStartTime;
                timeline = cousin.timeline;
-               while(timeline)
+               while(timeline != null)
                {
                   combinedTimeScale = combinedTimeScale * timeline.cachedTimeScale;
                   combinedStartTime = combinedStartTime + timeline.cachedStartTime;
                   timeline = timeline.timeline;
                }
                cousinStartTime = combinedTimeScale * combinedStartTime;
-               if(cast(cousinStartTime <= startTime, Bool) && (cast(cousinStartTime + cousin.totalDuration * combinedTimeScale + 1.0e-10 > startTime, Bool) || cast(cousin.cachedDuration == 0, Bool)))
+               if((cousinStartTime <= startTime)
+               && ((cousinStartTime + cousin.totalDuration * combinedTimeScale + 1.0e-10 > startTime) || (cousin.cachedDuration == 0)))
                {
-                  overlaps[oCount++] = cousin;
+                  overlaps[oCount++] = cast cousin;
                }
             }
          }

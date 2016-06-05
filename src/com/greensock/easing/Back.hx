@@ -1,22 +1,21 @@
 package com.greensock.easing;
    class Back
    {
-       
+
       public function new()
       {
-         super();
       }
-      
+
       public static function easeOut(t:Float, b:Float, c:Float, d:Float, s:Float = 1.70158) : Float
       {
          return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
       }
-      
+
       public static function easeIn(t:Float, b:Float, c:Float, d:Float, s:Float = 1.70158) : Float
       {
          return c * (t = t / d) * t * ((s + 1) * t - s) + b;
       }
-      
+
       public static function easeInOut(t:Float, b:Float, c:Float, d:Float, s:Float = 1.70158) : Float
       {
          if((t = t / (d * 0.5)) < 1)
