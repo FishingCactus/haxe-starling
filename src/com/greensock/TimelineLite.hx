@@ -1,40 +1,37 @@
 package com.greensock;
    import com.greensock.core.SimpleTimeline;
    import com.greensock.core.TweenCore;
-   
+
    class TimelineLite extends SimpleTimeline
    {
 
 		public var currentProgress(get, set):Float;
-		public var totalDuration(get, set):Float;
-		public var duration(get, set):Float;
 		public var useFrames(get, null):Bool;
-		public var rawTime(get, null):Float;
 		public var timeScale(get, set):Float;
 
-      
+
       public static inline var version:Float = 1.695;
-      
+
       private static var _overwriteMode:Int = !!OverwriteManager.enabled?cast(OverwriteManager.mode, Int):cast(OverwriteManager.init(2), Int);
-       
-      private var _endCaps:Array<Int>;
-      
+
+      private var _endCaps:Array<TweenCore>;
+
       private var _labels:Dynamic;
-      
+
       public function new(vars:Dynamic = null)
       {
          super(vars);
          _endCaps = [null,null];
          _labels = {};
          this.autoRemoveChildren = cast(this.vars.autoRemoveChildren == true, Bool);
-         _hasUpdate = cast(typeof this.vars.onUpdate == "function", Bool);
-         if(Std.is(this.vars.tweens, Array<Int>))
+         _hasUpdate = Reflect.isFunction( this.vars.onUpdate );
+         if(Std.is(this.vars.tweens, Array))
          {
-            this.insertMultiple(this.vars.tweens,0,this.vars.align != null?this.vars.align:"normal",cast(this.vars.stagger, Bool)?cast(Float(this.vars.stagger), Float):cast(0, Float));
+            this.insertMultiple(this.vars.tweens,0,this.vars.align != null?this.vars.align:"normal", this.vars.stagger != null ? this.vars.stagger: 0);
          }
       }
-      
-      public  function set_timeScale(n)
+
+      public  function set_timeScale(n:Float):Float
       {
          if(n == 0)
          {
@@ -44,20 +41,22 @@ package com.greensock;
          this.cachedStartTime = tlTime - (tlTime - this.cachedStartTime) * this.cachedTimeScale / n;
          this.cachedTimeScale = n;
          setDirtyCache(false);
+
+         return n;
       }
-      
+
       public function stop() : Void
       {
          this.paused = true;
       }
-      
+
       override public function renderTime(time:Float, suppressEvents:Bool = false, force:Bool = false) : Void
       {
          var tween:TweenCore = null;
          var isComplete:Bool = false;
          var rendered:Bool = false;
          var next:TweenCore = null;
-         var dur:Float = NaN;
+         var dur:Float = Math.NaN;
          if(this.gc)
          {
             this.setEnabled(true,false);
@@ -134,7 +133,7 @@ package com.greensock;
             if(this.cachedTime - prevTime > 0)
             {
                tween = _firstChild;
-               while(tween)
+               while(tween != null)
                {
                   next = tween.nextNode;
                   if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
@@ -159,7 +158,7 @@ package com.greensock;
             else
             {
                tween = _lastChild;
-               while(tween)
+               while(tween != null)
                {
                   next = tween.prevNode;
                   if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
@@ -191,7 +190,7 @@ package com.greensock;
             complete(true,suppressEvents);
          }
       }
-      
+
       override public function remove(tween:TweenCore, skipDisable:Bool = false) : Void
       {
          if(tween.cachedOrphan)
@@ -202,9 +201,9 @@ package com.greensock;
          {
             tween.setEnabled(false,true);
          }
-         var first:TweenCore = !!this.gc?_endCaps[0]:_firstChild;
-         var last:TweenCore = !!this.gc?_endCaps[1]:_lastChild;
-         if(tween.nextNode)
+         var first:TweenCore = this.gc?_endCaps[0]:_firstChild;
+         var last:TweenCore = this.gc?_endCaps[1]:_lastChild;
+         if(tween.nextNode != null)
          {
             tween.nextNode.prevNode = tween.prevNode;
          }
@@ -212,7 +211,7 @@ package com.greensock;
          {
             last = tween.prevNode;
          }
-         if(tween.prevNode)
+         if(tween.prevNode != null)
          {
             tween.prevNode.nextNode = tween.nextNode;
          }
@@ -233,25 +232,25 @@ package com.greensock;
          tween.cachedOrphan = true;
          setDirtyCache(true);
       }
-      
+
       public  function get_currentProgress()
       {
          return this.cachedTime / this.duration;
       }
-      
+
       override public  function get_totalDuration()
       {
-         var max:Float = NaN;
-         var end:Float = NaN;
+         var max:Float = Math.NaN;
+         var end:Float = Math.NaN;
          var tween:TweenCore = null;
-         var prevStart:Float = NaN;
+         var prevStart:Float = Math.NaN;
          var next:TweenCore = null;
          if(this.cacheIsDirty)
          {
             max = 0;
             tween = !!this.gc?_endCaps[0]:_firstChild;
-            prevStart = -Infinity;
-            while(tween)
+            prevStart = Math.NEGATIVE_INFINITY;
+            while(tween != null)
             {
                next = tween.nextNode;
                if(tween.cachedStartTime < prevStart)
@@ -279,24 +278,25 @@ package com.greensock;
          }
          return this.cachedTotalDuration;
       }
-      
+
       public function gotoAndPlay(timeOrLabel:Dynamic, suppressEvents:Bool = true) : Void
       {
          setTotalTime(parseTimeOrLabel(timeOrLabel),suppressEvents);
          play();
       }
-      
+
       public function appendMultiple(tweens:Array<Int>, offset:Float = 0, align:String = "normal", stagger:Float = 0) : Array<Int>
       {
          return insertMultiple(tweens,this.duration + offset,align,stagger);
       }
-      
-      public  function set_currentProgress(n)
+
+      public  function set_currentProgress(n:Float) :Float
       {
          setTotalTime(this.duration * n,false);
+         return n;
       }
-      
-      public function clear(tweens:Array<Int> = null) : Void
+
+      public function clear(tweens:Array<TweenCore> = null) : Void
       {
          if(tweens == null)
          {
@@ -308,25 +308,25 @@ package com.greensock;
             cast(tweens[i], TweenCore).setEnabled(false,false);
          }
       }
-      
+
       public function prepend(tween:TweenCore, adjustLabels:Bool = false) : TweenCore
       {
          shiftChildren(tween.totalDuration / tween.cachedTimeScale + tween.delay,adjustLabels,0);
          return insert(tween,0);
       }
-      
+
       public function removeLabel(label:String) : Float
       {
-         var n:Float = _labels[label];
+         var n:Float = Reflect.field(_labels, label);
          _labels.remove(label);
          return n;
       }
-      
+
       private function parseTimeOrLabel(timeOrLabel:Dynamic) : Float
       {
-         if(typeof timeOrLabel == "string")
+         if( Type.getClassName( Type.getClass(timeOrLabel) ) == "string")
          {
-            if(!(timeOrLabel in _labels))
+            if(!_labels.hasField(timeOrLabel))
             {
                throw new openfl.errors.Error("TimelineLite error: the " + timeOrLabel + " label was not found.");
             }
@@ -334,16 +334,16 @@ package com.greensock;
          }
          return cast(timeOrLabel, Float);
       }
-      
+
       public function addLabel(label:String, time:Float) : Void
       {
-         _labels[label] = time;
+         Reflect.setField(_labels, label, time);
       }
-      
+
       public function hasPausedChild() : Bool
       {
-         var tween:TweenCore = !!this.gc?_endCaps[0]:_firstChild;
-         while(tween)
+         var tween:TweenCore = this.gc?_endCaps[0]:_firstChild;
+         while(tween != null)
          {
             if(cast(tween.cachedPaused, Bool) || cast(Std.is(tween, TimelineLite), Bool) && cast((cast(tween, TimelineLite)).hasPausedChild(), Bool))
             {
@@ -353,60 +353,60 @@ package com.greensock;
          }
          return false;
       }
-      
-      public function getTweensOf(target:Dynamic, nested:Bool = true) : Array<Int>
+
+      public function getTweensOf(target:Dynamic, nested:Bool = true) : Array<TweenLite>
       {
          var i:Int = 0;
-         var tweens:Array<Int> = getChildren(nested,true,false);
-         var a:Array<Int> = [];
+         var tweens:Array<TweenCore> = getChildren(nested,true,false);
+         var a:Array<TweenLite> = [];
          var l:Int = tweens.length;
          var cnt:Int = 0;
          for( i in (0)...(l) )
          {
             if(cast(tweens[i], TweenLite).target == target)
             {
-               a[cnt++] = tweens[i];
+               a[cnt++] = cast(tweens[i], TweenLite);
             }
          }
          return a;
       }
-      
+
       public function gotoAndStop(timeOrLabel:Dynamic, suppressEvents:Bool = true) : Void
       {
          setTotalTime(parseTimeOrLabel(timeOrLabel),suppressEvents);
          this.paused = true;
       }
-      
+
       public function append(tween:TweenCore, offset:Float = 0) : TweenCore
       {
          return insert(tween,this.duration + offset);
       }
-      
+
       override public  function get_duration()
       {
-         var d:Float = NaN;
+         var d:Float = Math.NaN;
          if(this.cacheIsDirty)
          {
             d = this.totalDuration;
          }
          return this.cachedDuration;
       }
-      
+
       public  function get_useFrames()
       {
          var tl:SimpleTimeline = this.timeline;
-         while(tl.timeline)
+         while(tl.timeline != null)
          {
             tl = tl.timeline;
          }
          return cast(tl == TweenLite.rootFramesTimeline, Bool);
       }
-      
+
       public function shiftChildren(amount:Float, adjustLabels:Bool = false, ignoreBeforeTime:Float = 0) : Void
       {
          var p:Dynamic = null;
          var tween:TweenCore = !!this.gc?_endCaps[0]:_firstChild;
-         while(tween)
+         while(tween != null)
          {
             if(tween.cachedStartTime >= ignoreBeforeTime)
             {
@@ -416,26 +416,27 @@ package com.greensock;
          }
          if(adjustLabels)
          {
-            for(p in _labels)
+            for(p in Reflect.fields(_labels))
             {
-               if(_labels[p] >= ignoreBeforeTime)
+                var value = Reflect.field(_labels, p);
+               if( value >= ignoreBeforeTime)
                {
-                  _labels[p] = _labels[p] + amount;
+                  Reflect.setField(_labels, p, value + amount);
                }
             }
          }
          this.setDirtyCache(true);
       }
-      
+
       public function goto(timeOrLabel:Dynamic, suppressEvents:Bool = true) : Void
       {
          setTotalTime(parseTimeOrLabel(timeOrLabel),suppressEvents);
       }
-      
+
       public function killTweensOf(target:Dynamic, nested:Bool = true, vars:Dynamic = null) : Bool
       {
          var tween:TweenLite = null;
-         var tweens:Array<Int> = getTweensOf(target,nested);
+         var tweens:Array<TweenLite> = getTweensOf(target,nested);
          var i:Int = tweens.length;
          while(--i > -1)
          {
@@ -451,24 +452,27 @@ package com.greensock;
          }
          return cast(tweens.length > 0, Bool);
       }
-      
-      override public  function set_duration(n)
+
+      override public function set_duration(n:Float):Float
       {
-         if(cast(this.duration != 0, Bool) && cast(n != 0, Bool))
+         if(this.duration != 0 && n != 0)
          {
             this.timeScale = this.duration / n;
          }
+
+         return n;
       }
-      
+
       public function insertMultiple(tweens:Array<Int>, timeOrLabel:Dynamic = 0, align:String = "normal", stagger:Float = 0) : Array<Int>
       {
          var i:Int = 0;
          var tween:TweenCore = null;
-         var curTime:Float = cast(Float(timeOrLabel), Float) || cast(0, Float);
+         var curTime:Float = Std.parseFloat(timeOrLabel);
+         if( Math.isNaN( curTime )) curTime = 0;
          var l:Int = tweens.length;
-         if(typeof timeOrLabel == "string")
+         if( Type.getClassName( Type.getClass( timeOrLabel ) ) == "string")
          {
-            if(!(timeOrLabel in _labels))
+            if(!Reflect.hasField(_labels, timeOrLabel))
             {
                addLabel(timeOrLabel,this.duration);
             }
@@ -490,12 +494,12 @@ package com.greensock;
          }
          return tweens;
       }
-      
+
       public function getLabelTime(label:String) : Float
       {
-         return label in _labels?cast(Float(_labels[label]), Float):cast(-1, Float);
+         return Reflect.hasField(_labels, label)? Reflect.field(_labels,label):-1;
       }
-      
+
       override public  function get_rawTime()
       {
          if(cast(this.cachedPaused, Bool) || cast(this.cachedTotalTime != 0, Bool) && cast(this.cachedTotalTime != this.cachedTotalDuration, Bool))
@@ -504,21 +508,23 @@ package com.greensock;
          }
          return (this.timeline.rawTime - this.cachedStartTime) * this.cachedTimeScale;
       }
-      
-      override public  function set_totalDuration(n)
+
+      override public  function set_totalDuration(n:Float):Float
       {
-         if(cast(this.totalDuration != 0, Bool) && cast(n != 0, Bool))
+         if(this.totalDuration != 0 && n != 0)
          {
             this.timeScale = this.totalDuration / n;
          }
+
+         return n;
       }
-      
-      public function getChildren(nested:Bool = true, tweens:Bool = true, timelines:Bool = true, ignoreBeforeTime:Float = -9.999999999E9) : Array<Int>
+
+      public function getChildren(nested:Bool = true, tweens:Bool = true, timelines:Bool = true, ignoreBeforeTime:Float = -9.999999999E9) : Array<TweenCore>
       {
-         var a:Array<Int> = [];
+         var a:Array<TweenCore> = [];
          var cnt:Int = 0;
-         var tween:TweenCore = !!this.gc?_endCaps[0]:_firstChild;
-         while(tween)
+         var tween:TweenCore = this.gc?_endCaps[0]:_firstChild;
+         while(tween != null)
          {
             if(tween.cachedStartTime >= ignoreBeforeTime)
             {
@@ -546,14 +552,14 @@ package com.greensock;
          }
          return a;
       }
-      
+
       private function forceChildrenToEnd(time:Float, suppressEvents:Bool = false) : Float
       {
          var next:TweenCore = null;
-         var dur:Float = NaN;
+         var dur:Float = Math.NaN;
          var tween:TweenCore = _firstChild;
          var prevPaused:Bool = this.cachedPaused;
-         while(tween)
+         while(tween != null)
          {
             next = tween.nextNode;
             if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
@@ -580,14 +586,14 @@ package com.greensock;
          }
          return time;
       }
-      
+
       private function forceChildrenToBeginning(time:Float, suppressEvents:Bool = false) : Float
       {
          var next:TweenCore = null;
-         var dur:Float = NaN;
+         var dur:Float = Math.NaN;
          var tween:TweenCore = _lastChild;
          var prevPaused:Bool = this.cachedPaused;
-         while(tween)
+         while(tween != null)
          {
             next = tween.prevNode;
             if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
@@ -614,15 +620,15 @@ package com.greensock;
          }
          return time;
       }
-      
+
       override public function insert(tween:TweenCore, timeOrLabel:Dynamic = 0) : TweenCore
       {
          var curTween:TweenCore = null;
-         var st:Float = NaN;
+         var st:Float = Math.NaN;
          var tl:SimpleTimeline = null;
-         if(typeof timeOrLabel == "string")
+         if(Type.getClassName( Type.getClass( timeOrLabel ) )  == "string")
          {
-            if(!(timeOrLabel in _labels))
+            if(!Reflect.hasField(timeOrLabel, _labels))
             {
                addLabel(timeOrLabel,this.duration);
             }
@@ -668,7 +674,7 @@ package com.greensock;
             }
             else
             {
-               if(curTween.nextNode)
+               if(curTween.nextNode != null)
                {
                   curTween.nextNode.prevNode = tween;
                }
@@ -711,22 +717,22 @@ package com.greensock;
          }
          return tween;
       }
-      
+
       override public function invalidate() : Void
       {
-         var tween:TweenCore = !!this.gc?_endCaps[0]:_firstChild;
-         while(tween)
+         var tween:TweenCore = this.gc?_endCaps[0]:_firstChild;
+         while(tween != null)
          {
             tween.invalidate();
             tween = tween.nextNode;
          }
       }
-      
+
       public  function get_timeScale()
       {
          return this.cachedTimeScale;
       }
-      
+
       public function prependMultiple(tweens:Array<Int>, align:String = "normal", stagger:Float = 0, adjustLabels:Bool = false) : Array<Int>
       {
          var tl:TimelineLite = new TimelineLite({
@@ -739,7 +745,7 @@ package com.greensock;
          tl.kill();
          return tweens;
       }
-      
+
       override public function setEnabled(enabled:Bool, ignoreTimeline:Bool = false) : Bool
       {
          var tween:TweenCore = null;
@@ -757,7 +763,7 @@ package com.greensock;
                _endCaps = [_firstChild,_lastChild];
                _firstChild = _lastChild = null;
             }
-            while(tween)
+            while(tween != null)
             {
                tween.setEnabled(enabled,true);
                tween = tween.nextNode;

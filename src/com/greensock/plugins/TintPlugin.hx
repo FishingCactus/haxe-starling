@@ -1,44 +1,44 @@
 package com.greensock.plugins;
    import flash.geom.ColorTransform;
    import com.greensock.core.PropTween;
-   
+
    import flash.display.DisplayObject;
    import flash.geom.Transform;
-   
+
    class TintPlugin extends TweenPlugin
    {
 
-		public var changeFactor(null, set):Float;
 
-      
-      private static var _props:Array<Int> = ["redMultiplier","greenMultiplier","blueMultiplier","alphaMultiplier","redOffset","greenOffset","blueOffset","alphaOffset"];
-      
+      private static var _props:Array<String> = ["redMultiplier","greenMultiplier","blueMultiplier","alphaMultiplier","redOffset","greenOffset","blueOffset","alphaOffset"];
+
       public static inline var API:Float = 1;
-       
+
       private var _transform:Transform;
-      
+
       public function new()
       {
          super();
          this.propName = "tint";
          this.overwriteProps = ["tint"];
       }
-      
+
       public function init(start:ColorTransform, end:ColorTransform) : Void
       {
          var p:String = null;
          var i:Int = _props.length;
          var cnt:Int = _tweens.length;
-         while(i--)
+         while(i-->0)
          {
             p = _props[i];
-            if(start[p] != end[p])
+            var start_value = Reflect.field(start, p);
+            var end_value = Reflect.field(end, p);
+            if(start_value != end_value)
             {
-               _tweens[cnt++] = new PropTween(start,p,start[p],end[p] - start[p],"tint",false);
+               _tweens[cnt++] = new PropTween(start,p,start_value,end_value - start_value,"tint",false);
             }
          }
       }
-      
+
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          if(!(Std.is(target, DisplayObject)))
@@ -57,22 +57,24 @@ package com.greensock.plugins;
          init(start,end);
          return true;
       }
-      
-      override public  function set_changeFactor(n)
+
+      override public  function set_changeFactor(n:Float):Float
       {
          var ct:ColorTransform = null;
          var pt:PropTween = null;
          var i:Int = 0;
-         if(_transform)
+         if(_transform != null)
          {
             ct = _transform.colorTransform;
             i = _tweens.length;
             while(--i > -1)
             {
                pt = _tweens[i];
-               ct[pt.property] = pt.start + pt.change * n;
+               Reflect.setField(ct, pt.property, pt.start + pt.change * n);
             }
             _transform.colorTransform = ct;
          }
+
+         return n;
       }
    }

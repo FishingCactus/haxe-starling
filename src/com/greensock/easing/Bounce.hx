@@ -1,12 +1,11 @@
 package com.greensock.easing;
    class Bounce
    {
-       
+
       public function new()
       {
-         super();
       }
-      
+
       public static function easeOut(t:Float, b:Float, c:Float, d:Float) : Float
       {
          if((t = t / d) < 1 / 2.75)
@@ -23,12 +22,12 @@ package com.greensock.easing;
          }
          return c * (7.5625 * (t = t - 2.625 / 2.75) * t + 0.984375) + b;
       }
-      
+
       public static function easeIn(t:Float, b:Float, c:Float, d:Float) : Float
       {
          return c - easeOut(d - t,0,c,d) + b;
       }
-      
+
       public static function easeInOut(t:Float, b:Float, c:Float, d:Float) : Float
       {
          if(t < d * 0.5)

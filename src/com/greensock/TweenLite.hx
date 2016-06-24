@@ -162,14 +162,13 @@ package com.greensock;
 
       public static function killTweensOf(target:Dynamic, complete:Bool = false, vars:Dynamic = null) : Void
       {
-         var a:Array<Int> = null;
+         var a:Array<TweenLite> = null;
          var i:Int = 0;
          var tween:TweenLite = null;
-         throw ":TODO:";
-         /*
-         if(target in masterList)
+
+         if(masterList.exists(target))
          {
-            a = masterList[target];
+            a = masterList.get(target);
             i = a.length;
             while(--i > -1)
             {
@@ -194,7 +193,7 @@ package com.greensock;
             {
                masterList.remove(target);
            }
-       }*/
+       }
       }
 
       public static function from(target:Dynamic, duration:Float, vars:Dynamic) : TweenLite
