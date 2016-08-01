@@ -3,10 +3,6 @@ package com.greensock.plugins;
    
    class AutoAlphaPlugin extends TweenPlugin
    {
-
-		public var changeFactor(null, set):Float;
-
-      
       public static inline var API:Float = 1;
        
       private var _target:Dynamic;

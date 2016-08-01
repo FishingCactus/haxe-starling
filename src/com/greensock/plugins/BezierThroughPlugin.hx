@@ -14,11 +14,11 @@ package com.greensock.plugins;
       
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
-         if(!(Std.is(value, Array<Int>)))
+         if(!Std.is(value, Array))
          {
             return false;
          }
-         init(tween,cast(value, Array<Int>),true);
+         init(tween,cast(value, Array),true);
          return true;
       }
    }

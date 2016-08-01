@@ -1,12 +1,25 @@
 package com.greensock.plugins;
    
-   
-   class EndArrayPlugin extends TweenPlugin
+    class ArrayTweenInfo
    {
 
-		public var changeFactor(null, set):Float;
+       public var change:Float;
 
+       public var start:Float;
+
+       public var index:UInt;
+
+       function new(index:UInt, start:Float, change:Float)
+       {
+          super();
+          this.index = index;
+          this.start = start;
+          this.change = change;
+       }
+}
       
+   class EndArrayPlugin extends TweenPlugin
+   {
       public static inline var API:Float = 1;
        
       private var _a:Array<Int>;
@@ -36,11 +49,11 @@ package com.greensock.plugins;
       
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
-         if(cast(!(Std.is(target, Array<Int>)), Bool) || cast(!(Std.is(value, Array<Int>)), Bool))
+         if(!Std.is(target, Array) || !Std.is(value, Array))
          {
             return false;
          }
-         init(cast(target, Array<Int>),value);
+         init(cast(target, Array),value);
          return true;
       }
       
@@ -74,22 +87,4 @@ package com.greensock.plugins;
             }
          }
       }
-   }
-}
-
-class ArrayTweenInfo
-{
-    
-   public var change:Float;
-   
-   public var start:Float;
-   
-   public var index:UInt;
-   
-   function new(index:UInt, start:Float, change:Float)
-   {
-      super();
-      this.index = index;
-      this.start = start;
-      this.change = change;
    }

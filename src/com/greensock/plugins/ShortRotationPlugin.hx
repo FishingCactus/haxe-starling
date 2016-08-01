@@ -16,7 +16,7 @@ package com.greensock.plugins;
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var p:Dynamic = null;
-         if(typeof value == "number")
+         if(Std.is(value, Int) || Std.is(value, Float))
          {
             return false;
          }
@@ -25,7 +25,7 @@ package com.greensock.plugins;
          {
             if(p != "useRadians")
             {
-               initRotation(target,p,target[p],typeof value[p] == "number"?cast(Float(value[p]), Float):cast(target[p] + Float(value[p]), Float),useRadians);
+               initRotation(target,p,target[p], ( Std.is(value[p], Int) || Std.is(value[p], Float) ) ? cast(Float(value[p]), Float):cast(target[p] + Float(value[p]), Float),useRadians);
             }
          }
          return true;

@@ -1,7 +1,6 @@
 package com.greensock;
    import flash.events.IEventDispatcher;
    import com.greensock.core.SimpleTimeline;
-   import flash.utils.getTimer;
    import flash.display.DisplayObjectContainer;
    import flash.display.DisplayObject;
    import com.greensock.core.TweenCore;
@@ -40,19 +39,17 @@ package com.greensock;
 		public var repeat(get, set):Int;
 		public var repeatDelay(get, set):Float;
 		public var timeScale(get, set):Float;
-		public var totalDuration(get, set):Float;
-		public var currentTime(null, set):Float;
 
       
       private static var _overwriteMode:Int = !!OverwriteManager.enabled?cast(OverwriteManager.mode, Int):cast(OverwriteManager.init(2), Int);
       
       public static inline var version:Float = 11.697;
       
-      public static var killTweensOf:Function = TweenLite.killTweensOf;
+      public static var killTweensOf:Dynamic = TweenLite.killTweensOf;
       
-      public static var killDelayedCallsTo:Function = TweenLite.killTweensOf;
+      public static var killDelayedCallsTo:Dynamic = TweenLite.killTweensOf;
       
-      {
+      public static function __init__ () {
          TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin,{}]);
       }
       
@@ -109,7 +106,7 @@ package com.greensock;
             TweenLite.to({},0,{});
          }
          var tl:SimpleTimeline = TweenLite.rootTimeline;
-         var curTime:Float = getTimer() * 0.001;
+         var curTime:Float = flash.Lib.getTimer() * 0.001;
          tl.cachedStartTime = curTime - (curTime - tl.cachedStartTime) * tl.cachedTimeScale / n;
          tl = TweenLite.rootFramesTimeline;
          curTime = TweenLite.rootFrame;
@@ -135,7 +132,7 @@ package com.greensock;
          return new TweenMax(target,duration,toVars);
       }
       
-      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Dynamic, toVars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Dynamic, toVars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          if(toVars.isGSVars)
          {
@@ -216,7 +213,7 @@ package com.greensock;
          }
       }
       
-      public static function delayedCall(delay:Float, onComplete:Function, onCompleteParams:Array<Int> = null, useFrames:Bool = false) : TweenMax
+      public static function delayedCall(delay:Float, onComplete:Dynamic, onCompleteParams:Array<Int> = null, useFrames:Bool = false) : TweenMax
       {
          return new TweenMax(onComplete,0,{
             "delay":delay,
@@ -295,7 +292,7 @@ package com.greensock;
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allFrom(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFrom(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          if(vars.isGSVars)
          {
@@ -340,7 +337,7 @@ package com.greensock;
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Function = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
       {
          var i:Int = 0;
          var varsDup:Dynamic = null;
@@ -610,7 +607,7 @@ package com.greensock;
          this.duration = (n - _repeat * _repeatDelay) / (_repeat + 1);
       }
       
-      public function addEventListener(type:String, listener:Function, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false) : Void
+      public function addEventListener(type:String, listener:Dynamic, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false) : Void
       {
          if(_dispatcher == null)
          {
@@ -644,7 +641,7 @@ package com.greensock;
          }
       }
       
-      public function removeEventListener(type:String, listener:Function, useCapture:Bool = false) : Void
+      public function removeEventListener(type:String, listener:Dynamic, useCapture:Bool = false) : Void
       {
          if(_dispatcher)
          {

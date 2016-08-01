@@ -5,9 +5,6 @@ package com.greensock.plugins;
    class ColorMatrixFilterPlugin extends FilterPlugin
    {
 
-		public var changeFactor(null, set):Float;
-
-      
       public static inline var API:Float = 1;
       
       private static var _propNames:Array<Int> = [];
@@ -73,7 +70,7 @@ package com.greensock.plugins;
       {
          var y:Int = 0;
          var x:Int = 0;
-         if(cast(!(Std.is(m, Array<Int>)), Bool) || cast(!(Std.is(m2, Array<Int>)), Bool))
+         if(!Std.is(m, Array) || !Std.is(m2, Array))
          {
             return m2;
          }
@@ -149,7 +146,7 @@ package com.greensock.plugins;
          },new ColorMatrixFilter(_idMatrix.slice()),_propNames);
          _matrix = cast(_filter, ColorMatrixFilter).matrix;
          var endMatrix:Array<Int> = [];
-         if(cast(cmf.matrix != null, Bool) && cast(Std.is(cmf.matrix, Array<Int>), Bool))
+         if( cmf.matrix != null && Std.is(cmf.matrix, Array))
          {
             endMatrix = cmf.matrix;
          }
@@ -173,7 +170,7 @@ package com.greensock.plugins;
                endMatrix = colorize(endMatrix,cmf.colorize,cmf.amount);
             }
          }
-         _matrixTween = new com.greensock.plugins.cast(, EndArrayPlugin);
+         _matrixTween = new com.greensock.plugins.EndArrayPlugin();
          _matrixTween.init(_matrix,endMatrix);
          return true;
       }

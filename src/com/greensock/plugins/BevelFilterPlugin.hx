@@ -1,6 +1,7 @@
 package com.greensock.plugins;
    
-   import flash.filters.BevelFilter;
+   // :TODO:
+   //import flash.filters.BevelFilter;
    
    class BevelFilterPlugin extends FilterPlugin
    {
@@ -19,7 +20,8 @@ package com.greensock.plugins;
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _target = target;
-         _type = BevelFilter;
+         // :TODO:
+         //_type = BevelFilter;
          initFilter(value,new BevelFilter(0,0,16777215,0.5,0,0.5,2,2,0,cast(value.quality, Int) || cast(2, Int)),_propNames);
          return true;
       }

@@ -48,7 +48,7 @@ package com.greensock.loading;
                if(cast(loader.url == _url, Bool) && cast(loader != this, Bool) && cast(loader.status == LoaderStatus.COMPLETED, Bool) && cast(Std.is(loader, ImageLoader), Bool) && cast(Std.is(ImageLoader(loader).rawContent, Bitmap), Bool))
                {
                   _closeStream();
-                  _content = new Bitmap(cast(loader, ImageLoader).rawContent.bitmapData,"auto",cast(this.vars.smoothing != false, Bool));
+                  _content = new Bitmap(cast(loader, ImageLoader).rawContent.bitmapData,"auto",this.vars.smoothing);
                   cast(_sprite, Object).rawContent =cast( _content, DisplayObject);
                   _initted = true;
                   _progressHandler(new ProgressEvent(ProgressEvent.PROGRESS,false,false,loader.bytesLoaded,loader.bytesTotal));
