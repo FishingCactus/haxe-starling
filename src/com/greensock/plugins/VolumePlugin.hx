@@ -20,7 +20,7 @@ package com.greensock.plugins;
       
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
-         if(cast(isNaN(value), Bool) || cast(target.hasOwnProperty("volume"), Bool) || cast(!target.hasOwnProperty("soundTransform"), Bool))
+         if(cast(Math.isNaN(value), Bool) || cast(target.hasOwnProperty("volume"), Bool) || cast(!target.hasOwnProperty("soundTransform"), Bool))
          {
             return false;
          }

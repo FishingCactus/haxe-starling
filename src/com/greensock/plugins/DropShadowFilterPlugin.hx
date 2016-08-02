@@ -7,7 +7,7 @@ package com.greensock.plugins;
       
       public static inline var API:Float = 1;
       
-      private static var _propNames:Array<Int> = ["distance","angle","color","alpha","blurX","blurY","strength","quality","inner","knockout","hideObject"];
+      private static var _propNames:Array<String> = ["distance","angle","color","alpha","blurX","blurY","strength","quality","inner","knockout","hideObject"];
        
       public function new()
       {
@@ -20,7 +20,7 @@ package com.greensock.plugins;
       {
          _target = target;
          _type = DropShadowFilter;
-         initFilter(value,new DropShadowFilter(0,45,0,0,0,0,1,cast(value.quality, Int) || cast(2, Int),value.inner,value.knockout,value.hideObject),_propNames);
+         initFilter(value,new DropShadowFilter(0,45,0,0,0,0,1,cast(value.quality, Int) > 0 ? cast(value.quality, Int) : 2,value.inner,value.knockout,value.hideObject),_propNames);
          return true;
       }
    }

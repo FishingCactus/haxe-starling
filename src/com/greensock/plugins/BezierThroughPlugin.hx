@@ -18,7 +18,7 @@ package com.greensock.plugins;
          {
             return false;
          }
-         init(tween,cast(value, Array),true);
+         init(tween,cast value,true);
          return true;
       }
    }

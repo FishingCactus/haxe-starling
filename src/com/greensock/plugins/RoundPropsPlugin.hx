@@ -27,11 +27,11 @@ package com.greensock.plugins;
       
       private function _removePropTween(propTween:PropTween) : Void
       {
-         if(propTween.nextNode)
+         if(propTween.nextNode!=null)
          {
             propTween.nextNode.prevNode = propTween.prevNode;
          }
-         if(propTween.prevNode)
+         if(propTween.prevNode!=null)
          {
             propTween.prevNode.nextNode = propTween.nextNode;
          }
@@ -48,22 +48,22 @@ package com.greensock.plugins;
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          _tween = tween;
-         this.overwriteProps = this.overwriteProps.concat(cast(value, Array<Int>));
+         this.overwriteProps = this.overwriteProps.concat(cast value);
          return true;
       }
       
-      private function _initAllProps() : Void
+      private function _initAllProps(dummy:Dynamic) : Void
       {
          var prop:String = null;
          var multiProps:String = null;
          var pt:PropTween = null;
-         var rp:Array<Int> = _tween.vars.roundProps;
+         var rp:Array<String> = _tween.vars.roundProps;
          var i:Int = rp.length;
          while(--i > -1)
          {
             prop = rp[i];
             pt = _tween.cachedPT1;
-            while(pt)
+            while(pt != null)
             {
                if(pt.name == prop)
                {
@@ -75,7 +75,7 @@ package com.greensock.plugins;
                   {
                      add(pt.target,prop,pt.start,pt.change);
                      _removePropTween(pt);
-                     _tween.propTweenLookup[prop] = _tween.propTweenLookup.roundProps;
+                     _tween.propTweenLookup[prop] = _tween.propTweenLookup["roundProps"];
                   }
                }
                else if(cast(pt.isPlugin, Bool) && cast(pt.name == "_MULTIPLE_", Bool) && cast(!pt.target.round, Bool))

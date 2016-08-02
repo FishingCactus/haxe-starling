@@ -21,11 +21,11 @@ package com.greensock.plugins;
             return false;
          }
          var useRadians:Bool = cast(value.useRadians == true, Bool);
-         for(p in value)
+         for(p in Reflect.fields(value))
          {
             if(p != "useRadians")
             {
-               initRotation(target,p,target[p], ( Std.is(value[p], Int) || Std.is(value[p], Float) ) ? cast(Float(value[p]), Float):cast(target[p] + Float(value[p]), Float),useRadians);
+               initRotation(target,p,Reflect.field(target,p), ( Std.is(Reflect.field(value, p), Int) || Std.is(Reflect.field(value, p), Float) ) ? cast(Reflect.field(value, p), Float):cast(Reflect.field(target, p) + cast(Reflect.field(value,p), Float), Float),useRadians);
             }
          }
          return true;

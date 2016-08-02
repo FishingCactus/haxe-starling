@@ -9,9 +9,8 @@ package com.greensock.plugins;
 
        public var index:UInt;
 
-       function new(index:UInt, start:Float, change:Float)
+       public function new(index:UInt, start:Float, change:Float)
        {
-          super();
           this.index = index;
           this.start = start;
           this.change = change;
@@ -22,9 +21,9 @@ package com.greensock.plugins;
    {
       public static inline var API:Float = 1;
        
-      private var _a:Array<Int>;
+      private var _a:Array<Float>;
       
-      private var _info:Array<Int>;
+      private var _info:Array<ArrayTweenInfo>;
       
       public function new()
       {
@@ -34,11 +33,11 @@ package com.greensock.plugins;
          this.overwriteProps = ["endArray"];
       }
       
-      public function init(start:Array<Int>, end:Array<Int>) : Void
+      public function init(start:Array<Float>, end:Array<Float>) : Void
       {
          _a = start;
          var i:Int = end.length;
-         while(i--)
+         while(i-- > 0)
          {
             if(cast(start[i] != end[i], Bool) && cast(start[i] != null, Bool))
             {
@@ -53,34 +52,34 @@ package com.greensock.plugins;
          {
             return false;
          }
-         init(cast(target, Array),value);
+         init(cast target,value);
          return true;
       }
       
       override public  function set_changeFactor(n)
       {
          var ti:ArrayTweenInfo = null;
-         var val:Float = NaN;
+         var val:Float = Math.NaN;
          var i:Int = _info.length;
          if(this.round)
          {
-            while(i--)
+            while(i-->0)
             {
                ti = _info[i];
                val = ti.start + ti.change * n;
                if(val > 0)
                {
-                  _a[ti.index] = val + 0.5 >> 0;
+                  _a[ti.index] = Math.floor(val + 0.5);
                }
                else
                {
-                  _a[ti.index] = val - 0.5 >> 0;
+                  _a[ti.index] = Math.floor(val - 0.5);
                }
             }
          }
          else
          {
-            while(i--)
+            while(i-->0)
             {
                ti = _info[i];
                _a[ti.index] = ti.start + ti.change * n;

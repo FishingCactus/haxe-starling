@@ -2,16 +2,15 @@ package com.greensock.easing;
    class Elastic
    {
       
-      private static inline var _2PI:Float = Math.PI * 2;
+      private static inline var _2PI:Float = 6.28318530718;//Math.PI * 2;
        
       public function new()
       {
-         super();
       }
       
       public static function easeIn(t:Float, b:Float, c:Float, d:Float, a:Float = 0, p:Float = 0) : Float
       {
-         var s:Float = NaN;
+         var s:Float = Math.NaN;
          if(t == 0)
          {
             return b;
@@ -20,11 +19,11 @@ package com.greensock.easing;
          {
             return b + c;
          }
-         if(!p)
+         if(p==0)
          {
             p = d * 0.3;
          }
-         if(cast(!a, Bool) || cast(c > 0, Bool) && cast(a < c, Bool) || cast(c < 0, Bool) && cast(a < -c, Bool))
+         if( a == 0 || c > 0 && a < c || c < 0 && a < -c)
          {
             a = c;
             s = p / 4;
@@ -38,7 +37,7 @@ package com.greensock.easing;
       
       public static function easeInOut(t:Float, b:Float, c:Float, d:Float, a:Float = 0, p:Float = 0) : Float
       {
-         var s:Float = NaN;
+         var s:Float = Math.NaN;
          if(t == 0)
          {
             return b;
@@ -47,11 +46,11 @@ package com.greensock.easing;
          {
             return b + c;
          }
-         if(!p)
+         if(p==0)
          {
             p = d * (0.3 * 1.5);
          }
-         if(cast(!a, Bool) || cast(c > 0, Bool) && cast(a < c, Bool) || cast(c < 0, Bool) && cast(a < -c, Bool))
+         if( a == 0 || c > 0 && a < c || c < 0 && a < -c)
          {
             a = c;
             s = p / 4;
@@ -62,14 +61,14 @@ package com.greensock.easing;
          }
          if(t < 1)
          {
-            return -0.5 * (a * Math.pow(2,10 * (t = cast(t - 1, Float))) * Math.sin((t * d - s) * _2PI / p)) + b;
+            return -0.5 * (a * Math.pow(2,10 * (t = t - 1)) * Math.sin((t * d - s) * _2PI / p)) + b;
          }
-         return a * Math.pow(2,-10 * (t = cast(t - 1, Float))) * Math.sin((t * d - s) * _2PI / p) * 0.5 + c + b;
+         return a * Math.pow(2,-10 * (t = t - 1)) * Math.sin((t * d - s) * _2PI / p) * 0.5 + c + b;
       }
       
       public static function easeOut(t:Float, b:Float, c:Float, d:Float, a:Float = 0, p:Float = 0) : Float
       {
-         var s:Float = NaN;
+         var s:Float = Math.NaN;
          if(t == 0)
          {
             return b;
@@ -78,11 +77,11 @@ package com.greensock.easing;
          {
             return b + c;
          }
-         if(!p)
+         if(p==0)
          {
             p = d * 0.3;
          }
-         if(cast(!a, Bool) || cast(c > 0, Bool) && cast(a < c, Bool) || cast(c < 0, Bool) && cast(a < -c, Bool))
+         if( a == 0 || c > 0 && a < c || c < 0 && a < -c)
          {
             a = c;
             s = p / 4;

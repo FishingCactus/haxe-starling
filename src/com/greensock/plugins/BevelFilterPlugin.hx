@@ -8,7 +8,7 @@ package com.greensock.plugins;
       
       public static inline var API:Float = 1;
       
-      private static var _propNames:Array<Int> = ["distance","angle","highlightColor","highlightAlpha","shadowColor","shadowAlpha","blurX","blurY","strength","quality"];
+      private static var _propNames:Array<String> = ["distance","angle","highlightColor","highlightAlpha","shadowColor","shadowAlpha","blurX","blurY","strength","quality"];
        
       public function new()
       {
@@ -22,7 +22,7 @@ package com.greensock.plugins;
          _target = target;
          // :TODO:
          //_type = BevelFilter;
-         initFilter(value,new BevelFilter(0,0,16777215,0.5,0,0.5,2,2,0,cast(value.quality, Int) || cast(2, Int)),_propNames);
+         //initFilter(value,new BevelFilter(0,0,16777215,0.5,0,0.5,2,2,0,cast(value.quality, Int) || cast(2, Int)),_propNames);
          return true;
       }
    }

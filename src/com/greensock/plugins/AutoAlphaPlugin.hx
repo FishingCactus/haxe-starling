@@ -19,7 +19,7 @@ package com.greensock.plugins;
       override public function killProps(lookup:Dynamic) : Void
       {
          super.killProps(lookup);
-         _ignoreVisible = cast("visible" in lookup, Bool);
+         _ignoreVisible = Reflect.hasField(lookup, "visible");
       }
       
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
