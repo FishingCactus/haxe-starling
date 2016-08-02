@@ -50,7 +50,7 @@ package com.greensock;
       public static var killDelayedCallsTo:Dynamic = TweenLite.killTweensOf;
       
       public static function __init__ () {
-         TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin,{}]);
+         TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin/*,{}*/]);
       }
       
       private var _cyclesComplete:Int = 0;
@@ -78,7 +78,7 @@ package com.greensock;
          }
          this.yoyo = cast(this.vars.yoyo, Bool);
          _repeat = cast(this.vars.repeat, UInt);
-         _repeatDelay = cast(this.vars.repeatDelay, Bool)?cast(Float(this.vars.repeatDelay), Float):cast(0, Float);
+         _repeatDelay = this.vars.repeatDelay != 0?cast(this.vars.repeatDelay, Float):0;
          this.cacheIsDirty = true;
          if(cast(this.vars.onCompleteListener, Bool) || cast(this.vars.onInitListener, Bool) || cast(this.vars.onUpdateListener, Bool) || cast(this.vars.onStartListener, Bool) || cast(this.vars.onRepeatListener, Bool) || cast(this.vars.onReverseCompleteListener, Bool))
          {
@@ -95,7 +95,7 @@ package com.greensock;
          }
       }
       
-      public  static function set_globalTimeScale(n)
+      public  static function set_globalTimeScale(n:Float)
       {
          if(n == 0)
          {
@@ -112,6 +112,7 @@ package com.greensock;
          curTime = TweenLite.rootFrame;
          tl.cachedStartTime = curTime - (curTime - tl.cachedStartTime) * tl.cachedTimeScale / n;
          TweenLite.rootFramesTimeline.cachedTimeScale = TweenLite.rootTimeline.cachedTimeScale = n;
+         return n;
       }
       
       public static function fromTo(target:Dynamic, duration:Float, fromVars:Dynamic, toVars:Dynamic) : TweenMax
@@ -132,7 +133,7 @@ package com.greensock;
          return new TweenMax(target,duration,toVars);
       }
       
-      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Dynamic, toVars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFromTo(targets:Array<Int>, duration:Float, fromVars:Dynamic, toVars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<TweenLite>
       {
          if(toVars.isGSVars)
          {
@@ -155,13 +156,13 @@ package com.greensock;
          changePause(true,tweens,delayedCalls);
       }
       
-      public static function getTweensOf(target:Dynamic) : Array<Int>
+      public static function getTweensOf(target:Dynamic) : Array<TweenLite>
       {
          var i:Int = 0;
          var cnt:Int = 0;
-         var a:Array<Int> = masterList[target];
-         var toReturn:Array<Int> = [];
-         if(a)
+         var a:Array<TweenLite> = TweenLite.masterList.get(target);
+         var toReturn:Array<TweenLite> = [];
+         if(a!=null)
          {
             i = a.length;
             cnt = 0;
@@ -185,7 +186,7 @@ package com.greensock;
       {
          var curTarget:Dynamic = null;
          var curParent:DisplayObjectContainer = null;
-         var a:Array<Int> = getAllTweens();
+         var a:Array<TweenLite> = getAllTweens();
          var i:Int = a.length;
          while(--i > -1)
          {
@@ -193,7 +194,7 @@ package com.greensock;
             if(Std.is(curTarget, DisplayObject))
             {
                curParent = curTarget.parent;
-               while(curParent)
+               while(curParent!=null)
                {
                   if(curParent == parent)
                   {
@@ -213,7 +214,7 @@ package com.greensock;
          }
       }
       
-      public static function delayedCall(delay:Float, onComplete:Dynamic, onCompleteParams:Array<Int> = null, useFrames:Bool = false) : TweenMax
+      public static function delayedCall(delay:Float, onComplete:Dynamic, onCompleteParams:Array<Dynamic> = null, useFrames:Bool = false) : TweenMax
       {
          return new TweenMax(onComplete,0,{
             "delay":delay,
@@ -228,7 +229,7 @@ package com.greensock;
       public static function isTweening(target:Dynamic) : Bool
       {
          var tween:TweenLite = null;
-         var a:Array<Int> = getTweensOf(target);
+         var a:Array<TweenLite> = getTweensOf(target);
          var i:Int = a.length;
          while(--i > -1)
          {
@@ -244,7 +245,7 @@ package com.greensock;
       public static function killAll(complete:Bool = false, tweens:Bool = true, delayedCalls:Bool = true) : Void
       {
          var isDC:Bool = false;
-         var a:Array<Int> = getAllTweens();
+         var a:Array<TweenLite> = getAllTweens();
          var i:Int = a.length;
          while(--i > -1)
          {
@@ -266,7 +267,7 @@ package com.greensock;
       private static function changePause(pause:Bool, tweens:Bool = true, delayedCalls:Bool = false) : Void
       {
          var isDC:Bool = false;
-         var a:Array<Int> = getAllTweens();
+         var a:Array<TweenLite> = getAllTweens();
          var i:Int = a.length;
          while(--i > -1)
          {
@@ -285,40 +286,40 @@ package com.greensock;
             vars = vars.vars;
          }
          vars.runBackwards = true;
-         if(!("immediateRender" in vars))
+         if(!Reflect.hasField(vars, "immediateRender"))
          {
             vars.immediateRender = true;
          }
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allFrom(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allFrom(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<TweenLite>
       {
          if(vars.isGSVars)
          {
             vars = vars.vars;
          }
          vars.runBackwards = true;
-         if(!("immediateRender" in vars))
+         if(!Reflect.hasField(vars, "immediateRender"))
          {
             vars.immediateRender = true;
          }
          return allTo(targets,duration,vars,stagger,onCompleteAll,onCompleteAllParams);
       }
       
-      public static function getAllTweens() : Array<Int>
+      public static function getAllTweens() : Array<TweenLite>
       {
-         var a:Array<Int> = null;
+         var a:Array<TweenLite> = null;
          var i:Int = 0;
-         var ml:Dictionary = masterList;
+         var ml = TweenLite.masterList;
          var cnt:Int = 0;
-         var toReturn:Array<Int> = [];
+         var toReturn:Array<TweenLite> = [];
          for( a in ml )
          {
             i = a.length;
             while(--i > -1)
             {
-               if(!cast(a[i], TweenLite).gc)
+               if(!a[i].gc)
                {
                   toReturn[cnt++] = a[i];
                }
@@ -337,29 +338,29 @@ package com.greensock;
          return new TweenMax(target,duration,vars);
       }
       
-      public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<Int>
+      public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<TweenLite>
       {
          var i:Int = 0;
          var varsDup:Dynamic = null;
          var p:String = null;
-         var onCompleteProxy:Function = null;
+         var onCompleteProxy:Dynamic = null;
          var onCompleteParamsProxy:Array<Int> = null;
          var l:Int = targets.length;
-         var a:Array<Int> = [];
+         var a:Array<TweenLite> = [];
          if(vars.isGSVars)
          {
             var vars:Dynamic = vars.vars;
          }
-         var curDelay:Float = "delay" in vars?cast(Float(vars.delay), Float):cast(0, Float);
+         var curDelay:Float = Reflect.hasField(vars,"delay")?cast(vars.delay, Float):0;
          onCompleteProxy = vars.onComplete;
          onCompleteParamsProxy = vars.onCompleteParams;
          var lastIndex:Int = l - 1;
          for( i in (0)...(l) )
          {
             varsDup = {};
-            for(p in vars)
+            for(p in Reflect.fields(vars))
             {
-               varsDup[p] = vars[p];
+               Reflect.setField(varsDup, p, Reflect.field(vars, p));
             }
             varsDup.delay = curDelay;
             if(cast(i == lastIndex, Bool) && cast(onCompleteAll != null, Bool))
@@ -384,7 +385,7 @@ package com.greensock;
          return _dispatcher == null?cast(false, Bool):cast(_dispatcher.dispatchEvent(e), Bool);
       }
       
-      public  function set_timeScale(n)
+      public  function set_timeScale(n:Float)
       {
          if(n == 0)
          {
@@ -394,6 +395,7 @@ package com.greensock;
          this.cachedStartTime = tlTime - (tlTime - this.cachedStartTime) * this.cachedTimeScale / n;
          this.cachedTimeScale = n;
          setDirtyCache(false);
+         return n;
       }
       
       override public function renderTime(time:Float, suppressEvents:Bool = false, force:Bool = false) : Void
@@ -401,10 +403,10 @@ package com.greensock;
          var isComplete:Bool = false;
          var repeated:Bool = false;
          var setRatio:Bool = false;
-         var cycleDuration:Float = NaN;
+         var cycleDuration:Float = Math.NaN;
          var prevCycles:Int = 0;
          var power:Int = 0;
-         var val:Float = NaN;
+         var val:Float = Math.NaN;
          var totalDur:Float = !!this.cacheIsDirty?cast(this.totalDuration, Float):cast(this.cachedTotalDuration, Float);
          var prevTime:Float = this.cachedTime;
          var prevTotalTime:Float = this.cachedTotalTime;
@@ -457,11 +459,11 @@ package com.greensock;
          {
             cycleDuration = this.cachedDuration + _repeatDelay;
             prevCycles = _cyclesComplete;
-            if(cast((_cyclesComplete = this.cachedTotalTime / cycleDuration >> 0) == this.cachedTotalTime / cycleDuration, Bool) && cast(_cyclesComplete != 0, Bool))
+            if((_cyclesComplete = Math.floor(this.cachedTotalTime / cycleDuration)) == ( this.cachedTotalTime / cycleDuration ) && _cyclesComplete != 0)
             {
                _cyclesComplete--;
             }
-            repeated = cast(prevCycles != _cyclesComplete, Bool);
+            repeated = prevCycles != _cyclesComplete;
             if(isComplete)
             {
                if(cast(this.yoyo, Bool) && cast(_repeat % 2, Bool))
@@ -507,7 +509,7 @@ package com.greensock;
          }
          if(setRatio)
          {
-            if(_easeType)
+            if(_easeType!=null)
             {
                power = _easePower;
                val = this.cachedTime / this.cachedDuration;
@@ -558,15 +560,15 @@ package com.greensock;
             {
                this.vars.onStart.apply(null,this.vars.onStartParams);
             }
-            if(_dispatcher)
+            if(_dispatcher!=null)
             {
                _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.START));
             }
          }
          var pt:PropTween = this.cachedPT1;
-         while(pt)
+         while(pt!=null)
          {
-            pt.target[pt.property] = pt.start + this.ratio * pt.change;
+            Reflect.setField(pt.target, pt.property, pt.start + this.ratio * pt.change);
             pt = pt.nextNode;
          }
          if(cast(_hasUpdate, Bool) && cast(!suppressEvents, Bool))
@@ -583,7 +585,7 @@ package com.greensock;
             {
                this.vars.onRepeat.apply(null,this.vars.onRepeatParams);
             }
-            if(_dispatcher)
+            if(_dispatcher!=null)
             {
                _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.REPEAT));
             }
@@ -592,7 +594,7 @@ package com.greensock;
          {
             if(cast(_hasPlugins, Bool) && cast(this.cachedPT1, Bool))
             {
-               onPluginEvent("onComplete",this);
+               TweenLite.onPluginEvent("onComplete",this);
             }
             complete(true,suppressEvents);
          }
@@ -629,21 +631,21 @@ package com.greensock;
             this.vars.startAt.immediateRender = true;
             startTween = new TweenMax(this.target,0,this.vars.startAt);
          }
-         if(_dispatcher)
+         if(_dispatcher!=null)
          {
             _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.INIT));
          }
          super.init();
-         if(_ease in fastEaseLookup)
+         if(TweenLite.fastEaseLookup.exists(_ease))
          {
-            _easeType = fastEaseLookup[_ease][0];
-            _easePower = fastEaseLookup[_ease][1];
+            _easeType = TweenLite.fastEaseLookup.get(_ease)[0];
+            _easePower = TweenLite.fastEaseLookup.get(_ease)[1];
          }
       }
       
       public function removeEventListener(type:String, listener:Dynamic, useCapture:Bool = false) : Void
       {
-         if(_dispatcher)
+         if(_dispatcher!=null)
          {
             _dispatcher.removeEventListener(type,listener,useCapture);
          }
@@ -652,7 +654,7 @@ package com.greensock;
       public function setDestination(property:String, value:Dynamic, adjustStartValues:Bool = true) : Void
       {
          var vars:Dynamic = {};
-         vars[property] = value;
+         Reflect.setField(vars, property, value);
          updateTo(vars,!adjustStartValues);
       }
       
@@ -672,34 +674,34 @@ package com.greensock;
          {
             _dispatcher = new EventDispatcher(this);
          }
-         if(Std.is(this.vars.onInitListener, Function))
+         if(Reflect.isFunction(this.vars.onInitListener))
          {
             _dispatcher.addEventListener(TweenEvent.INIT,this.vars.onInitListener,false,0,true);
          }
-         if(Std.is(this.vars.onStartListener, Function))
+         if(Reflect.isFunction(this.vars.onStartListener))
          {
             _dispatcher.addEventListener(TweenEvent.START,this.vars.onStartListener,false,0,true);
          }
-         if(Std.is(this.vars.onUpdateListener, Function))
+         if(Reflect.isFunction(this.vars.onUpdateListener))
          {
             _dispatcher.addEventListener(TweenEvent.UPDATE,this.vars.onUpdateListener,false,0,true);
             _hasUpdateListener = true;
          }
-         if(Std.is(this.vars.onCompleteListener, Function))
+         if(Reflect.isFunction(this.vars.onCompleteListener))
          {
             _dispatcher.addEventListener(TweenEvent.COMPLETE,this.vars.onCompleteListener,false,0,true);
          }
-         if(Std.is(this.vars.onRepeatListener, Function))
+         if(Reflect.isFunction(this.vars.onRepeatListener))
          {
             _dispatcher.addEventListener(TweenEvent.REPEAT,this.vars.onRepeatListener,false,0,true);
          }
-         if(Std.is(this.vars.onReverseCompleteListener, Function))
+         if(Reflect.isFunction(this.vars.onReverseCompleteListener))
          {
             _dispatcher.addEventListener(TweenEvent.REVERSE_COMPLETE,this.vars.onReverseCompleteListener,false,0,true);
          }
       }
       
-      public  function set_currentProgress(n)
+      public  function set_currentProgress(n:Float)
       {
          if(_cyclesComplete == 0)
          {
@@ -709,6 +711,7 @@ package com.greensock;
          {
             setTotalTime(this.duration * n + _cyclesComplete * this.cachedDuration,false);
          }
+         return n;
       }
       
       public  function get_totalProgress()
@@ -716,18 +719,19 @@ package com.greensock;
          return this.cachedTotalTime / this.totalDuration;
       }
       
-      public  function set_totalProgress(n)
+      public  function set_totalProgress(n:Float)
       {
          setTotalTime(this.totalDuration * n,false);
+         return n;
       }
       
       public function updateTo(vars:Dynamic, resetDuration:Bool = false) : Void
       {
          var p:Dynamic = null;
-         var prevTime:Float = NaN;
-         var inv:Float = NaN;
+         var prevTime:Float = Math.NaN;
+         var inv:Float = Math.NaN;
          var pt:PropTween = null;
-         var endValue:Float = NaN;
+         var endValue:Float = Math.NaN;
          var curRatio:Float = this.ratio;
          if(cast(resetDuration, Bool) && cast(this.timeline != null, Bool) && cast(this.cachedStartTime < this.timeline.cachedTime, Bool))
          {
@@ -742,9 +746,9 @@ package com.greensock;
                this.timeline.insert(this,this.cachedStartTime - _delay);
             }
          }
-         for(p in vars)
+         for(p in Reflect.fields(vars))
          {
-            this.vars[p] = vars[p];
+            Reflect.setField(this.vars, p, Reflect.field(vars, p));
          }
          if(this.initted)
          {
@@ -756,7 +760,7 @@ package com.greensock;
             {
                if(cast(_notifyPluginsOfEnabled, Bool) && cast(this.cachedPT1, Bool))
                {
-                  onPluginEvent("onDisable",this);
+                  TweenLite.onPluginEvent("onDisable",this);
                }
                if(this.cachedTime / this.cachedDuration > 0.998)
                {
@@ -771,7 +775,7 @@ package com.greensock;
                   init();
                   inv = 1 / (1 - curRatio);
                   pt = this.cachedPT1;
-                  while(pt)
+                  while(pt!=null)
                   {
                      endValue = pt.start + pt.change;
                      pt.change = pt.change * inv;
@@ -793,11 +797,11 @@ package com.greensock;
          return _repeat;
       }
       
-      override public  function set_currentTime(n)
+      override public  function set_currentTime(n:Float)
       {
          if(_cyclesComplete != 0)
          {
-            if(cast(this.yoyo, Bool) && cast(_cyclesComplete % 2 == 1, Bool))
+            if(this.yoyo && _cyclesComplete % 2 == 1)
             {
                n = this.duration - n + _cyclesComplete * (this.cachedDuration + _repeatDelay);
             }
@@ -807,6 +811,7 @@ package com.greensock;
             }
          }
          setTotalTime(n,false);
+         return n;
       }
       
       public  function get_repeatDelay()
@@ -829,12 +834,14 @@ package com.greensock;
       {
          _repeatDelay = n;
          setDirtyCache(true);
+         return n;
       }
       
       public  function set_repeat(n)
       {
          _repeat = n;
          setDirtyCache(true);
+         return n;
       }
       
       override public function complete(skipRender:Bool = false, suppressEvents:Bool = false) : Void
@@ -855,11 +862,11 @@ package com.greensock;
       
       override public function invalidate() : Void
       {
-         this.yoyo = cast(this.vars.yoyo == true, Bool);
-         _repeat = cast(this.vars.repeat, Bool)?cast(Float(this.vars.repeat), Int):cast(0, Int);
-         _repeatDelay = cast(this.vars.repeatDelay, Bool)?cast(Float(this.vars.repeatDelay), Float):cast(0, Float);
+         this.yoyo = this.vars.yoyo == true;
+         _repeat = this.vars.repeat?cast(this.vars.repeat, Int):0;
+         _repeatDelay = this.vars.repeatDelay?cast(this.vars.repeatDelay, Float):0;
          _hasUpdateListener = false;
-         if(cast(this.vars.onCompleteListener != null, Bool) || cast(this.vars.onUpdateListener != null, Bool) || cast(this.vars.onStartListener != null, Bool))
+         if(this.vars.onCompleteListener != null || this.vars.onUpdateListener != null || this.vars.onStartListener != null)
          {
             initDispatcher();
          }
@@ -876,7 +883,7 @@ package com.greensock;
       {
          if(this.cacheIsDirty)
          {
-            this.cachedTotalDuration = _repeat == -1?cast(999999999999, Float):cast(this.cachedDuration * (_repeat + 1) + _repeatDelay * _repeat, Float);
+            this.cachedTotalDuration = _repeat == -1?999999999999.0:cast(this.cachedDuration * (_repeat + 1) + _repeatDelay * _repeat, Float);
             this.cacheIsDirty = false;
          }
          return this.cachedTotalDuration;

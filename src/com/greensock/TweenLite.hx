@@ -17,7 +17,7 @@ package com.greensock;
 
       public static var rootTimeline:SimpleTimeline;
 
-      public static var fastEaseLookup:Map<Int,Int> = new Map();
+      public static var fastEaseLookup:Map<Dynamic,Array<Int>> = new Map();
 
       public static var onPluginEvent:String->TweenLite->Bool;
 
