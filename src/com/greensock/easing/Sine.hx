@@ -2,11 +2,10 @@ package com.greensock.easing;
    class Sine
    {
       
-      private static inline var _HALF_PI:Float = Math.PI * 0.5;
+      private static inline var _HALF_PI:Float = 1.57079632679;//Math.PI * 0.5;
        
       public function new()
       {
-         super();
       }
       
       public static function easeOut(t:Float, b:Float, c:Float, d:Float) : Float
