@@ -30,6 +30,8 @@ package com.greensock;
    import com.greensock.core.PropTween;
    import flash.events.EventDispatcher;
    
+   import haxe.Constraints.IMap;
+
    class TweenMax extends TweenLite implements IEventDispatcher
    {
 
@@ -600,13 +602,14 @@ package com.greensock;
          }
       }
       
-      override public  function set_totalDuration(n)
+      override public  function set_totalDuration(n:Float)
       {
          if(_repeat == -1)
          {
-            return;
+            return 0.0;
          }
          this.duration = (n - _repeat * _repeatDelay) / (_repeat + 1);
+         return n;
       }
       
       public function addEventListener(type:String, listener:Dynamic, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false) : Void

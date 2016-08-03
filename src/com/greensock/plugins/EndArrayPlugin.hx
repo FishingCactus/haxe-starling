@@ -56,7 +56,7 @@ package com.greensock.plugins;
          return true;
       }
       
-      override public  function set_changeFactor(n)
+      override public  function set_changeFactor(n:Float)
       {
          var ti:ArrayTweenInfo = null;
          var val:Float = Math.NaN;
@@ -85,5 +85,6 @@ package com.greensock.plugins;
                _a[ti.index] = ti.start + ti.change * n;
             }
          }
+         return n;
       }
    }

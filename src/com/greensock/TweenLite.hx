@@ -1,6 +1,7 @@
 package com.greensock;
    import com.greensock.core.TweenCore;
    import com.greensock.core.SimpleTimeline;
+   import com.greensock.core.FunctionMap;
    import flash.utils.Dictionary;
    import flash.events.Event;
    import flash.display.Stage;
@@ -17,7 +18,7 @@ package com.greensock;
 
       public static var rootTimeline:SimpleTimeline;
 
-      public static var fastEaseLookup:Map<Dynamic,Array<Int>> = new Map();
+      public static var fastEaseLookup:FunctionMap<TweenFunction,Array<Int>> = new FunctionMap();
 
       public static var onPluginEvent:String->TweenLite->Bool;
 

@@ -30,7 +30,7 @@ package com.greensock.plugins;
          return true;
       }
       
-      override public  function set_changeFactor(n)
+      override public  function set_changeFactor(n:Float)
       {
          if(cast(n == 1, Bool) && (cast(_tween.cachedDuration == _tween.cachedTime, Bool) || cast(_tween.cachedTime == 0, Bool)))
          {
@@ -40,5 +40,6 @@ package com.greensock.plugins;
          {
             _target.visible = _initVal;
          }
+         return n;
       }
    }

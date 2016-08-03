@@ -30,9 +30,10 @@ package com.greensock.plugins;
          return true;
       }
       
-      override public  function set_changeFactor(n)
+      override public  function set_changeFactor(n:Float)
       {
          updateTweens(n);
          _target.soundTransform = _st;
+         return n;
       }
    }

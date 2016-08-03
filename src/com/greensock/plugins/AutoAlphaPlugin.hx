@@ -29,12 +29,13 @@ package com.greensock.plugins;
          return true;
       }
       
-      override public  function set_changeFactor(n)
+      override public  function set_changeFactor(n:Float)
       {
          updateTweens(n);
          if(!_ignoreVisible)
          {
             _target.visible = cast(_target.alpha != 0, Bool);
          }
+         return n;
       }
    }

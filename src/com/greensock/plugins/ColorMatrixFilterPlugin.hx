@@ -176,10 +176,11 @@ package com.greensock.plugins;
          return true;
       }
       
-      override public  function set_changeFactor(n)
+      override public  function set_changeFactor(n:Float)
       {
          _matrixTween.changeFactor = n;
          cast(_filter, ColorMatrixFilter).matrix = _matrix;
          super.changeFactor = n;
+         return n;
       }
    }
