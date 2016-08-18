@@ -208,11 +208,11 @@ package com.greensock.core;
          {
             if((this.vars.onComplete) && (this.cachedTotalTime >= this.cachedTotalDuration) && (!this.cachedReversed))
             {
-               this.vars.onComplete.apply(null,this.vars.onCompleteParams);
+               this.vars.onComplete(this.vars.onCompleteParams);
             }
             else if((this.cachedReversed) && (this.cachedTotalTime == 0) && (this.vars.onReverseComplete))
             {
-               this.vars.onReverseComplete.apply(null,this.vars.onReverseCompleteParams);
+               this.vars.onReverseComplete(this.vars.onReverseCompleteParams);
             }
          }
       }
