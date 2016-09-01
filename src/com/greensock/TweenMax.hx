@@ -78,20 +78,20 @@ package com.greensock;
          {
             throw new openfl.errors.Error("TweenMax error! Please update your TweenLite class or try deleting your ASO files. TweenMax requires a more recent version. Download updates at http://www.TweenMax.com.");
          }
-         this.yoyo = cast(this.vars.yoyo, Bool);
-         _repeat = cast(this.vars.repeat, UInt);
-         _repeatDelay = this.vars.repeatDelay != 0?cast(this.vars.repeatDelay, Float):0;
+         this.yoyo = this.vars.yoyo;
+         _repeat = this.vars.repeat;
+         _repeatDelay = this.vars.repeatDelay != 0?this.vars.repeatDelay:0;
          this.cacheIsDirty = true;
-         if(cast(this.vars.onCompleteListener, Bool) || cast(this.vars.onInitListener, Bool) || cast(this.vars.onUpdateListener, Bool) || cast(this.vars.onStartListener, Bool) || cast(this.vars.onRepeatListener, Bool) || cast(this.vars.onReverseCompleteListener, Bool))
+         if(this.vars.onCompleteListener != null || this.vars.onInitListener != null || this.vars.onUpdateListener != null || this.vars.onStartListener != null || this.vars.onRepeatListener != null || this.vars.onReverseCompleteListener != null)
          {
             initDispatcher();
-            if(cast(duration == 0, Bool) && cast(_delay == 0, Bool))
+            if(duration == 0 && _delay == 0)
             {
                _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.UPDATE));
                _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.COMPLETE));
             }
          }
-         if(cast(this.vars.timeScale, Bool) && cast(!(Std.is(this.target, TweenCore)), Bool))
+         if(this.vars.timeScale && !Std.is(this.target, TweenCore))
          {
             this.cachedTimeScale = this.vars.timeScale;
          }
@@ -409,7 +409,7 @@ package com.greensock;
          var prevCycles:Int = 0;
          var power:Int = 0;
          var val:Float = Math.NaN;
-         var totalDur:Float = !!this.cacheIsDirty?cast(this.totalDuration, Float):cast(this.cachedTotalDuration, Float);
+         var totalDur:Float = !!this.cacheIsDirty?this.totalDuration:this.cachedTotalDuration;
          var prevTime:Float = this.cachedTime;
          var prevTotalTime:Float = this.cachedTotalTime;
          if(time >= totalDur)
@@ -420,7 +420,7 @@ package com.greensock;
             isComplete = !this.cachedReversed;
             if(this.cachedDuration == 0)
             {
-               if((cast(time == 0, Bool) || cast(_rawPrevTime < 0, Bool)) && cast(_rawPrevTime != time, Bool))
+               if((time == 0 || _rawPrevTime < 0) && _rawPrevTime != time)
                {
                   force = true;
                }
@@ -442,12 +442,12 @@ package com.greensock;
                   _rawPrevTime = time;
                }
             }
-            else if(cast(time == 0, Bool) && cast(!this.initted, Bool))
+            else if(time == 0 && !this.initted)
             {
                force = true;
             }
             this.cachedTotalTime = this.cachedTime = this.ratio = 0;
-            if(cast(this.cachedReversed, Bool) && cast(prevTotalTime != 0, Bool))
+            if(this.cachedReversed && prevTotalTime != 0)
             {
                isComplete = true;
             }
@@ -468,7 +468,7 @@ package com.greensock;
             repeated = prevCycles != _cyclesComplete;
             if(isComplete)
             {
-               if(cast(this.yoyo, Bool) && cast(_repeat % 2, Bool))
+               if(this.yoyo && _repeat % 2 != 0)
                {
                   this.cachedTime = this.ratio = 0;
                }
@@ -476,7 +476,7 @@ package com.greensock;
             else if(time > 0)
             {
                this.cachedTime = this.cachedTotalTime - _cyclesComplete * cycleDuration;
-               if(cast(this.yoyo, Bool) && cast(_cyclesComplete % 2, Bool))
+               if(this.yoyo && _cyclesComplete % 2 != 0)
                {
                   this.cachedTime = this.cachedDuration - this.cachedTime;
                }
@@ -497,7 +497,7 @@ package com.greensock;
                _cyclesComplete = 0;
             }
          }
-         if(cast(prevTime == this.cachedTime, Bool) && cast(!force, Bool))
+         if(prevTime == this.cachedTime && !force)
          {
             return;
          }
@@ -505,7 +505,7 @@ package com.greensock;
          {
             init();
          }
-         if(cast(!this.active, Bool) && cast(!this.cachedPaused, Bool))
+         if(!this.active && !this.cachedPaused)
          {
             this.active = true;
          }
@@ -556,7 +556,7 @@ package com.greensock;
                this.ratio = _ease(this.cachedTime,0,1,this.cachedDuration);
             }
          }
-         if(cast(prevTotalTime == 0, Bool) && (cast(this.cachedTotalTime != 0, Bool) || cast(this.cachedDuration == 0, Bool)) && cast(!suppressEvents, Bool))
+         if(prevTotalTime == 0 && (this.cachedTotalTime != 0 || this.cachedDuration == 0) && !suppressEvents)
          {
             if(this.vars.onStart)
             {
@@ -573,15 +573,15 @@ package com.greensock;
             Reflect.setField(pt.target, pt.property, pt.start + this.ratio * pt.change);
             pt = pt.nextNode;
          }
-         if(cast(_hasUpdate, Bool) && cast(!suppressEvents, Bool))
+         if(_hasUpdate && !suppressEvents)
          {
             this.vars.onUpdate.apply(null,this.vars.onUpdateParams);
          }
-         if(cast(_hasUpdateListener, Bool) && cast(!suppressEvents, Bool))
+         if(_hasUpdateListener && !suppressEvents)
          {
             _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.UPDATE));
          }
-         if(cast(repeated, Bool) && cast(!suppressEvents, Bool) && cast(!this.gc, Bool))
+         if(repeated && !suppressEvents && !this.gc)
          {
             if(this.vars.onRepeat)
             {
@@ -592,9 +592,9 @@ package com.greensock;
                _dispatcher.dispatchEvent(new TweenEvent(TweenEvent.REPEAT));
             }
          }
-         if(cast(isComplete, Bool) && cast(!this.gc, Bool))
+         if(isComplete && !this.gc)
          {
-            if(cast(_hasPlugins, Bool) && cast(this.cachedPT1, Bool))
+            if(_hasPlugins && this.cachedPT1 != null )
             {
                TweenLite.onPluginEvent("onComplete",this);
             }
