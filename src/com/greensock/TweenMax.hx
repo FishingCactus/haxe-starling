@@ -570,7 +570,7 @@ package com.greensock;
          var pt:PropTween = this.cachedPT1;
          while(pt!=null)
          {
-            Reflect.setField(pt.target, pt.property, pt.start + this.ratio * pt.change);
+            Reflect.setProperty(pt.target, pt.property, pt.start + this.ratio * pt.change);
             pt = pt.nextNode;
          }
          if(_hasUpdate && !suppressEvents)
