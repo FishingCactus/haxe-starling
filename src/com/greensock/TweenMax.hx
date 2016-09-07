@@ -49,8 +49,6 @@ package com.greensock;
       
       public static var killTweensOf:Dynamic = TweenLite.killTweensOf;
       
-      public static var killDelayedCallsTo:Dynamic = TweenLite.killTweensOf;
-      
       public static function __init__ () {
          TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin/*,{}*/]);
       }
@@ -216,7 +214,7 @@ package com.greensock;
          }
       }
       
-      public static function delayedCall(delay:Float, onComplete:Dynamic, onCompleteParams:Array<Dynamic> = null, useFrames:Bool = false) : TweenMax
+      public static function delayedCall(delay:Float, onComplete:Array<Dynamic>->Void, onCompleteParams:Array<Dynamic> = null, useFrames:Bool = false) : TweenMax
       {
          return new TweenMax(onComplete,0,{
             "delay":delay,
