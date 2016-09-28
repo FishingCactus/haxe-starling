@@ -394,7 +394,7 @@ Std.is(
       
       public function prop(property:String, value:Float, relative:Bool = false) : TweenLiteVars
       {
-         return _set(property,!!relative?cast(value, String):value);
+         return _set(property,!!relative?Std.string(value):value);
       }
       
       public function glowFilter(blurX:Float = 10, blurY:Float = 10, color:UInt = 16777215, alpha:Float = 1, strength:Float = 2, inner:Bool = false, knockout:Bool = false, quality:UInt = 2, remove:Bool = false, addFilter:Bool = false, index:Int = -1) : TweenLiteVars
@@ -435,7 +435,7 @@ Std.is(
       
       public function frame(value:Int, relative:Bool = false) : TweenLiteVars
       {
-         return _set("frame",!!relative?cast(value, String):value,true);
+         return _set("frame",!!relative?Std.string(value):value,true);
       }
       
       public function ease(ease:Function, easeParams:Array<Int> = null) : TweenLiteVars
