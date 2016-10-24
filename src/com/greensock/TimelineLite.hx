@@ -23,7 +23,7 @@ package com.greensock;
          super(vars);
          _endCaps = [null,null];
          _labels = {};
-         this.autoRemoveChildren = cast(this.vars.autoRemoveChildren == true, Bool);
+         this.autoRemoveChildren = this.vars.autoRemoveChildren == true;
          _hasUpdate = Reflect.isFunction( this.vars.onUpdate );
          if(Std.is(this.vars.tweens, Array))
          {
@@ -37,7 +37,7 @@ package com.greensock;
          {
             n = 0.0001;
          }
-         var tlTime:Float = cast(this.cachedPauseTime, Bool) || cast(this.cachedPauseTime == 0, Bool)?cast(this.cachedPauseTime, Float):cast(this.timeline.cachedTotalTime, Float);
+         var tlTime:Float = this.cachedPauseTime != null ? this.cachedPauseTime : this.timeline.cachedTotalTime;
          this.cachedStartTime = tlTime - (tlTime - this.cachedStartTime) * this.cachedTimeScale / n;
          this.cachedTimeScale = n;
          setDirtyCache(false);
@@ -61,24 +61,24 @@ package com.greensock;
          {
             this.setEnabled(true,false);
          }
-         else if(cast(!this.active, Bool) && cast(!this.cachedPaused, Bool))
+         else if(!this.active && !this.cachedPaused)
          {
             this.active = true;
          }
-         var totalDur:Float = !!this.cacheIsDirty?cast(this.totalDuration, Float):cast(this.cachedTotalDuration, Float);
+         var totalDur:Float = !!this.cacheIsDirty?this.totalDuration:this.cachedTotalDuration;
          var prevTime:Float = this.cachedTime;
          var prevStart:Float = this.cachedStartTime;
          var prevTimeScale:Float = this.cachedTimeScale;
          var prevPaused:Bool = this.cachedPaused;
          if(time >= totalDur)
          {
-            if(cast(prevTime != totalDur, Bool) && cast(_rawPrevTime != time, Bool))
+            if(prevTime != totalDur && _rawPrevTime != time)
             {
                this.cachedTotalTime = this.cachedTime = totalDur;
                forceChildrenToEnd(totalDur,suppressEvents);
-               isComplete = cast(!this.hasPausedChild(), Bool) && cast(!this.cachedReversed, Bool);
+               isComplete = !this.hasPausedChild() && !this.cachedReversed;
                rendered = true;
-               if(cast(this.cachedDuration == 0, Bool) && cast(isComplete, Bool) && (cast(time == 0, Bool) || cast(_rawPrevTime < 0, Bool)))
+               if(this.cachedDuration == 0 && isComplete && (time == 0 || _rawPrevTime < 0))
                {
                   force = true;
                }
@@ -89,17 +89,17 @@ package com.greensock;
             if(time < 0)
             {
                this.active = false;
-               if(cast(this.cachedDuration == 0, Bool) && cast(_rawPrevTime > 0, Bool))
+               if(this.cachedDuration == 0 && _rawPrevTime > 0)
                {
                   force = true;
                   isComplete = true;
                }
             }
-            else if(cast(time == 0, Bool) && cast(!this.initted, Bool))
+            else if(time == 0 && !this.initted)
             {
                force = true;
             }
-            if(cast(prevTime != 0, Bool) && cast(_rawPrevTime != time, Bool))
+            if(prevTime != 0 && _rawPrevTime != time)
             {
                this.cachedTotalTime = 0;
                this.cachedTime = 0;
@@ -116,7 +116,7 @@ package com.greensock;
             this.cachedTotalTime = this.cachedTime = time;
          }
          _rawPrevTime = time;
-         if(cast(this.cachedTime == prevTime, Bool) && cast(!force, Bool))
+         if(this.cachedTime == prevTime && !force)
          {
             return;
          }
@@ -124,7 +124,7 @@ package com.greensock;
          {
             this.initted = true;
          }
-         if(cast(prevTime == 0 && this.vars.onStart, Bool) && cast(this.cachedTime != 0, Bool) && cast(!suppressEvents, Bool))
+         if(prevTime == 0 && this.vars.onStart && this.cachedTime != 0 && !suppressEvents)
          {
             this.vars.onStart.apply(null,this.vars.onStartParams);
          }
@@ -136,11 +136,11 @@ package com.greensock;
                while(tween != null)
                {
                   next = tween.nextNode;
-                  if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
+                  if(this.cachedPaused && !prevPaused)
                   {
                      break;
                   }
-                  if(cast(tween.active, Bool) || cast(!tween.cachedPaused, Bool) && cast(tween.cachedStartTime <= this.cachedTime, Bool) && cast(!tween.gc, Bool))
+                  if(tween.active || !tween.cachedPaused && tween.cachedStartTime <= this.cachedTime && !tween.gc)
                   {
                      if(!tween.cachedReversed)
                      {
@@ -148,7 +148,7 @@ package com.greensock;
                      }
                      else
                      {
-                        dur = !!tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
+                        dur = !!tween.cacheIsDirty?tween.totalDuration:tween.cachedTotalDuration;
                         tween.renderTime(dur - (this.cachedTime - tween.cachedStartTime) * tween.cachedTimeScale,suppressEvents,false);
                      }
                   }
@@ -161,11 +161,11 @@ package com.greensock;
                while(tween != null)
                {
                   next = tween.prevNode;
-                  if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
+                  if(this.cachedPaused && !prevPaused)
                   {
                      break;
                   }
-                  if(cast(tween.active, Bool) || cast(!tween.cachedPaused, Bool) && cast(tween.cachedStartTime <= prevTime, Bool) && cast(!tween.gc, Bool))
+                  if(tween.active || !tween.cachedPaused && tween.cachedStartTime <= prevTime && !tween.gc)
                   {
                      if(!tween.cachedReversed)
                      {
@@ -173,7 +173,7 @@ package com.greensock;
                      }
                      else
                      {
-                        dur = !!tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
+                        dur = !!tween.cacheIsDirty?tween.totalDuration:tween.cachedTotalDuration;
                         tween.renderTime(dur - (this.cachedTime - tween.cachedStartTime) * tween.cachedTimeScale,suppressEvents,false);
                      }
                   }
@@ -181,11 +181,11 @@ package com.greensock;
                }
             }
          }
-         if(cast(_hasUpdate, Bool) && cast(!suppressEvents, Bool))
+         if(_hasUpdate && !suppressEvents)
          {
             this.vars.onUpdate.apply(null,this.vars.onUpdateParams);
          }
-         if(cast(isComplete, Bool) && (cast(prevStart == this.cachedStartTime, Bool) || cast(prevTimeScale != this.cachedTimeScale, Bool)) && (cast(totalDur >= this.totalDuration, Bool) || cast(this.cachedTime == 0, Bool)))
+         if(isComplete && (prevStart == this.cachedStartTime || prevTimeScale != this.cachedTimeScale) && (totalDur >= this.totalDuration || this.cachedTime == 0))
          {
             complete(true,suppressEvents);
          }
@@ -324,15 +324,15 @@ package com.greensock;
 
       private function parseTimeOrLabel(timeOrLabel:Dynamic) : Float
       {
-         if( Type.getClassName( Type.getClass(timeOrLabel) ) == "string")
+         if( Type.getClassName( Type.getClass(timeOrLabel) ) == "String")
          {
             if(!_labels.hasField(timeOrLabel))
             {
                throw new openfl.errors.Error("TimelineLite error: the " + timeOrLabel + " label was not found.");
             }
-            return getLabelTime(cast(timeOrLabel, String));
+            return getLabelTime(timeOrLabel);
          }
-         return cast(timeOrLabel, Float);
+         return timeOrLabel;
       }
 
       public function addLabel(label:String, time:Float) : Void
@@ -345,7 +345,7 @@ package com.greensock;
          var tween:TweenCore = this.gc?_endCaps[0]:_firstChild;
          while(tween != null)
          {
-            if(cast(tween.cachedPaused, Bool) || cast(Std.is(tween, TimelineLite), Bool) && cast((cast(tween, TimelineLite)).hasPausedChild(), Bool))
+            if(tween.cachedPaused || Std.is(tween, TimelineLite) && cast(tween, TimelineLite).hasPausedChild())
             {
                return true;
             }
@@ -399,7 +399,7 @@ package com.greensock;
          {
             tl = tl.timeline;
          }
-         return cast(tl == TweenLite.rootFramesTimeline, Bool);
+         return tl == TweenLite.rootFramesTimeline;
       }
 
       public function shiftChildren(amount:Float, adjustLabels:Bool = false, ignoreBeforeTime:Float = 0) : Void
@@ -445,12 +445,12 @@ package com.greensock;
             {
                tween.killVars(vars);
             }
-            if(cast(vars == null, Bool) || cast(tween.cachedPT1 == null, Bool) && cast(tween.initted, Bool))
+            if(vars == null || tween.cachedPT1 == null && tween.initted)
             {
                tween.setEnabled(false,false);
             }
          }
-         return cast(tweens.length > 0, Bool);
+         return tweens.length > 0;
       }
 
       override public function set_duration(n:Float):Float
@@ -470,7 +470,7 @@ package com.greensock;
          var curTime:Float = Std.parseFloat(timeOrLabel);
          if( Math.isNaN( curTime )) curTime = 0;
          var l:Int = tweens.length;
-         if( Type.getClassName( Type.getClass( timeOrLabel ) ) == "string")
+         if( Type.getClassName( Type.getClass( timeOrLabel ) ) == "String")
          {
             if(!Reflect.hasField(_labels, timeOrLabel))
             {
@@ -502,7 +502,7 @@ package com.greensock;
 
       override public  function get_rawTime()
       {
-         if(cast(this.cachedPaused, Bool) || cast(this.cachedTotalTime != 0, Bool) && cast(this.cachedTotalTime != this.cachedTotalDuration, Bool))
+         if(this.cachedPaused || this.cachedTotalTime != 0 && this.cachedTotalTime != this.cachedTotalDuration)
          {
             return this.cachedTotalTime;
          }
@@ -562,15 +562,15 @@ package com.greensock;
          while(tween != null)
          {
             next = tween.nextNode;
-            if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
+            if(this.cachedPaused && !prevPaused)
             {
                break;
             }
-            if(cast(tween.active, Bool) || cast(!tween.cachedPaused, Bool) && cast(!tween.gc, Bool) && (cast(tween.cachedTotalTime != tween.cachedTotalDuration, Bool) || cast(tween.cachedDuration == 0, Bool)))
+            if(tween.active || !tween.cachedPaused && !tween.gc && (tween.cachedTotalTime != tween.cachedTotalDuration || tween.cachedDuration == 0))
             {
-               if(cast(time == this.cachedDuration, Bool) && (cast(tween.cachedDuration != 0, Bool) || cast(tween.cachedStartTime == this.cachedDuration, Bool)))
+               if(time == this.cachedDuration && (tween.cachedDuration != 0 || tween.cachedStartTime == this.cachedDuration))
                {
-                  tween.renderTime(!!tween.cachedReversed?cast(0, Float):cast(tween.cachedTotalDuration, Float),suppressEvents,false);
+                  tween.renderTime(!!tween.cachedReversed?0.0:tween.cachedTotalDuration,suppressEvents,false);
                }
                else if(!tween.cachedReversed)
                {
@@ -578,7 +578,7 @@ package com.greensock;
                }
                else
                {
-                  dur = !!tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
+                  dur = !!tween.cacheIsDirty?tween.totalDuration:tween.cachedTotalDuration;
                   tween.renderTime(dur - (time - tween.cachedStartTime) * tween.cachedTimeScale,suppressEvents,false);
                }
             }
@@ -596,15 +596,15 @@ package com.greensock;
          while(tween != null)
          {
             next = tween.prevNode;
-            if(cast(this.cachedPaused, Bool) && cast(!prevPaused, Bool))
+            if(this.cachedPaused && !prevPaused)
             {
                break;
             }
-            if(cast(tween.active, Bool) || cast(!tween.cachedPaused, Bool) && cast(!tween.gc, Bool) && (cast(tween.cachedTotalTime != 0, Bool) || cast(tween.cachedDuration == 0, Bool)))
+            if(tween.active || !tween.cachedPaused && !tween.gc && (tween.cachedTotalTime != 0 || tween.cachedDuration == 0))
             {
-               if(cast(time == 0, Bool) && (cast(tween.cachedDuration != 0, Bool) || cast(tween.cachedStartTime == 0, Bool)))
+               if(time == 0 && (tween.cachedDuration != 0 || tween.cachedStartTime == 0))
                {
-                  tween.renderTime(!!tween.cachedReversed?cast(tween.cachedTotalDuration, Float):cast(0, Float),suppressEvents,false);
+                  tween.renderTime(!!tween.cachedReversed?tween.cachedTotalDuration:0.0,suppressEvents,false);
                }
                else if(!tween.cachedReversed)
                {
@@ -612,7 +612,7 @@ package com.greensock;
                }
                else
                {
-                  dur = !!tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
+                  dur = !!tween.cacheIsDirty?tween.totalDuration:tween.cachedTotalDuration;
                   tween.renderTime(dur - (time - tween.cachedStartTime) * tween.cachedTimeScale,suppressEvents,false);
                }
             }
@@ -626,7 +626,7 @@ package com.greensock;
          var curTween:TweenCore = null;
          var st:Float = Math.NaN;
          var tl:SimpleTimeline = null;
-         if(Type.getClassName( Type.getClass( timeOrLabel ) )  == "string")
+         if(Type.getClassName( Type.getClass( timeOrLabel ) )  == "String")
          {
             if(!Reflect.hasField(timeOrLabel, _labels))
             {
@@ -635,13 +635,13 @@ package com.greensock;
             timeOrLabel = cast(_labels[timeOrLabel], Float);
          }
          var prevTimeline:SimpleTimeline = tween.timeline;
-         if(cast(!tween.cachedOrphan, Bool) && cast(prevTimeline, Bool))
+         if(!tween.cachedOrphan && prevTimeline!=null)
          {
             prevTimeline.remove(tween,true);
          }
          tween.timeline = this;
-         tween.cachedStartTime = cast(timeOrLabel, Float) + tween.delay;
-         if(cast(tween.cachedPaused, Bool) && cast(prevTimeline != this, Bool))
+         tween.cachedStartTime = timeOrLabel + tween.delay;
+         if(tween.cachedPaused && prevTimeline != this)
          {
             tween.cachedPauseTime = tween.cachedStartTime + (this.rawTime - tween.cachedStartTime) / tween.cachedTimeScale;
          }
@@ -661,7 +661,7 @@ package com.greensock;
          {
             curTween = last;
             st = tween.cachedStartTime;
-            while(cast(curTween != null, Bool) && cast(st < curTween.cachedStartTime, Bool))
+            while(curTween != null && st < curTween.cachedStartTime)
             {
                curTween = curTween.prevNode;
             }
@@ -698,15 +698,15 @@ package com.greensock;
             _firstChild = first;
             _lastChild = last;
          }
-         if(cast(this.gc, Bool) && cast(!this.cachedPaused, Bool) && cast(this.cachedStartTime + (tween.cachedStartTime + tween.cachedTotalDuration / tween.cachedTimeScale) / this.cachedTimeScale > this.timeline.cachedTime, Bool))
+         if(this.gc && !this.cachedPaused && this.cachedStartTime + (tween.cachedStartTime + tween.cachedTotalDuration / tween.cachedTimeScale) / this.cachedTimeScale > this.timeline.cachedTime)
          {
-            if(cast(this.timeline == TweenLite.rootTimeline, Bool) || cast(this.timeline == TweenLite.rootFramesTimeline, Bool))
+            if(this.timeline == TweenLite.rootTimeline || this.timeline == TweenLite.rootFramesTimeline)
             {
                this.setTotalTime(this.cachedTotalTime,true);
             }
             this.setEnabled(true,false);
             tl = this.timeline;
-            while(cast(tl.gc, Bool) && cast(tl.timeline, Bool))
+            while(tl.gc && tl.timeline!=null)
             {
                if(tl.cachedStartTime + tl.totalDuration / tl.cachedTimeScale > tl.timeline.cachedTime)
                {
