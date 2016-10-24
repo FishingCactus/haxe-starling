@@ -1,52 +1,45 @@
 package com.greensock.motionPaths;
    import flash.display.Shape;
    import flash.events.Event;
-   
+
+   import com.greensock.motionPaths.PathFollower;
+
    class MotionPath extends Shape
    {
 
-		public var targets(get, null):Array;
+		public var targets(get, null):Array<Dynamic>;
 		public var rawProgress(get, set):Float;
-		public var followers(get, null):Array;
-		public var height(get, set):Float;
+		public var followers(get, null):Array<PathFollower>;
 		public var progress(get, set):Float;
-		public var width(get, set):Float;
-		public var scaleX(get, set):Float;
-		public var scaleY(get, set):Float;
-		public var visible(get, set):Bool;
-		public var x(get, set):Float;
-		public var y(get, set):Float;
-		public var rotation(get, set):Float;
 
-      
-      private static inline var _RAD2DEG:Float = 180 / Math.PI;
-      
-      private static inline var _DEG2RAD:Float = Math.PI / 180;
-       
+      private static var _RAD2DEG:Float = 180 / Math.PI;
+
+      private static var _DEG2RAD:Float = Math.PI / 180;
+
       private var _progress:Float;
-      
+
       private var _scaleMode:String;
-      
+
       private var _redrawLine:Bool;
-      
+
       private var _rawProgress:Float;
-      
+
       private var _caps:String;
-      
+
       private var _lineAlpha:Float;
-      
+
       private var _joints:String;
-      
+
       private var _miterLimit:Float;
-      
+
       private var _color:UInt;
-      
+
       private var _pixelHinting:Bool;
-      
+
       private var _thickness:Float;
-      
+
       private var _rootFollower:com.greensock.motionPaths.PathFollower;
-      
+
       public function new()
       {
          super();
@@ -54,49 +47,51 @@ package com.greensock.motionPaths;
          lineStyle(1,6710886,1,false,"none",null,null,3,true);
          this.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage,false,0,true);
       }
-      
-      override public  function set_y(value)
+
+      public override function set_y(value:Float):Float
       {
          super.y = value;
          update();
+         return value;
       }
-      
-      public  function get_targets()<Int>
+
+      public  function get_targets() : Array<Dynamic>
       {
-         var a:Array<Int> = [];
+         var a:Array<Dynamic> = [];
          var cnt:UInt = 0;
          var f:com.greensock.motionPaths.PathFollower = _rootFollower;
-         while(f)
+         while(f!=null)
          {
             a[cnt++] = f.target;
             f = f.cachedNext;
          }
          return a;
       }
-      
+
       public  function get_rawProgress()
       {
          return _rawProgress;
       }
-      
+
       public function renderObjectAt(target:Dynamic, progress:Float, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
       }
-      
-      override public  function set_width(value)
+
+      public override function set_width(value:Float):Float
       {
-         super.width =cast( value;
+         super.width = value;
          update();
+         return value;
       }
-      
+
       public function getFollower(target:Dynamic) : com.greensock.motionPaths.PathFollower
       {
          if(Std.is(target, PathFollower))
          {
-            return target, PathFollower);
+            return cast(target, PathFollower);
          }
          var f:com.greensock.motionPaths.PathFollower = _rootFollower;
-         while(f)
+         while(f!=null)
          {
             if(f.target == target)
             {
@@ -106,7 +101,7 @@ package com.greensock.motionPaths;
          }
          return null;
       }
-      
+
       private function _normalize(num:Float) : Float
       {
          if(num > 1)
@@ -119,7 +114,7 @@ package com.greensock.motionPaths;
          }
          return num;
       }
-      
+
       public function lineStyle(thickness:Float = 1, color:UInt = 6710886, alpha:Float = 1, pixelHinting:Bool = false, scaleMode:String = "none", caps:String = null, joints:String = null, miterLimit:Float = 3, skipRedraw:Bool = false) : Void
       {
          _thickness = thickness;
@@ -136,18 +131,19 @@ package com.greensock.motionPaths;
             update();
          }
       }
-      
-      override public  function set_scaleY(value)
+
+      public override function set_scaleY(value:Float):Float
       {
          super.scaleY = value;
          update();
+         return value;
       }
-      
+
       public function removeAllFollowers() : Void
       {
          var next:com.greensock.motionPaths.PathFollower = null;
          var f:com.greensock.motionPaths.PathFollower = _rootFollower;
-         while(f)
+         while(f!=null)
          {
             next = f.cachedNext;
             f.cachedNext = f.cachedPrev = null;
@@ -156,41 +152,37 @@ package com.greensock.motionPaths;
          }
          _rootFollower = null;
       }
-      
+
       private function onAddedToStage(event:Event) : Void
       {
          update();
       }
-      
-      override public  function set_scaleX(value)
+
+      public override function set_scaleX(value:Float):Float
       {
          super.scaleX = value;
          update();
+         return value;
       }
-      
-      public  function get_followers()<Int>
+
+      public  function get_followers() :Array<PathFollower>
       {
-         var a:Array<Int> = [];
+         var a:Array<PathFollower> = [];
          var cnt:UInt = 0;
-         var f:com.greensock.motionPaths.PathFollower = _rootFollower;
-         while(f)
+         var f:PathFollower = _rootFollower;
+         while(f!=null)
          {
             a[cnt++] = f;
             f = f.cachedNext;
          }
          return a;
       }
-      
-      override public  function get_height()
-      {
-         return super.height;
-      }
-      
+
       public  function get_progress()
       {
          return _progress;
       }
-      
+
       public function removeFollower(target:Dynamic) : Void
       {
          var f:com.greensock.motionPaths.PathFollower = getFollower(target);
@@ -198,11 +190,11 @@ package com.greensock.motionPaths;
          {
             return;
          }
-         if(f.cachedNext)
+         if(f.cachedNext!=null)
          {
             f.cachedNext.cachedPrev = f.cachedPrev;
          }
-         if(f.cachedPrev)
+         if(f.cachedPrev!=null)
          {
             f.cachedPrev.cachedNext = f.cachedNext;
          }
@@ -213,27 +205,12 @@ package com.greensock.motionPaths;
          f.cachedNext = f.cachedPrev = null;
          f.path = null;
       }
-      
-      override public  function get_width()
-      {
-         return super.width;
-      }
-      
+
       public function update(event:Event = null) : Void
       {
       }
-      
-      override public  function get_scaleX()
-      {
-         return super.scaleX;
-      }
-      
-      override public  function get_scaleY()
-      {
-         return super.scaleY;
-      }
-      
-      public  function set_progress(value)
+
+      public  function set_progress(value:Float) : Float
       {
          if(value > 1)
          {
@@ -255,7 +232,7 @@ package com.greensock.motionPaths;
          }
          var dif:Float = value - _progress;
          var f:com.greensock.motionPaths.PathFollower = _rootFollower;
-         while(f)
+         while(f!=null)
          {
             f.cachedProgress = f.cachedProgress + dif;
             f.cachedRawProgress = f.cachedRawProgress + dif;
@@ -275,26 +252,28 @@ package com.greensock.motionPaths;
          }
          _progress = value;
          update();
+         return value;
       }
-      
-      override public  function set_height(value)
+
+      public override function set_height(value:Float) : Float
       {
          super.height = value;
          update();
+         return value;
       }
-      
+
       public function addFollower(target:Dynamic, progress:Float = 0, autoRotate:Bool = false, rotationOffset:Float = 0) : com.greensock.motionPaths.PathFollower
       {
          var f:com.greensock.motionPaths.PathFollower = getFollower(target);
          if(f == null)
          {
-            f = new com.greensock.motionPaths.cast(target, PathFollower);
+            f = new com.greensock.motionPaths.PathFollower(target);
          }
          f.autoRotate = autoRotate;
          f.rotationOffset = rotationOffset;
          if(f.path != this)
          {
-            if(_rootFollower)
+            if(_rootFollower!=null)
             {
                _rootFollower.cachedPrev = f;
             }
@@ -305,8 +284,8 @@ package com.greensock.motionPaths;
          }
          return f;
       }
-      
-      public function distribute(targets:Array<Int> = null, min:Float = 0, max:Float = 1, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
+
+      public function distribute(targets:Array<PathFollower> = null, min:Float = 0, max:Float = 1, autoRotate:Bool = false, rotationOffset:Float = 0) : Void
       {
          var f:com.greensock.motionPaths.PathFollower = null;
          if(targets == null)
@@ -328,48 +307,31 @@ package com.greensock.motionPaths;
             this.renderObjectAt(f.target,f.cachedProgress,autoRotate,rotationOffset);
          }
       }
-      
-      override public  function set_visible(value)
+
+      public override function set_visible(value:Bool) : Bool
       {
          super.visible = value;
          _redrawLine = true;
          update();
+         return value;
       }
-      
-      override public  function set_x(value)
+
+      public override function set_x(value:Float):Float
       {
          super.x = value;
          update();
+         return value;
       }
-      
-      public  function set_rawProgress(value)
+
+      public function set_rawProgress(value)
       {
-         this.progress = value;
+         return this.progress = value;
       }
-      
-      override public  function get_visible()
-      {
-         return super.visible;
-      }
-      
-      override public  function get_x()
-      {
-         return super.x;
-      }
-      
-      override public  function get_y()
-      {
-         return super.y;
-      }
-      
-      override public  function set_rotation(value)
+
+      public override function set_rotation(value:Float):Float
       {
          super.rotation = value;
          update();
-      }
-      
-      override public  function get_rotation()
-      {
-         return super.rotation;
+         return value;
       }
    }
