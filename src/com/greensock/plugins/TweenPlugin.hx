@@ -47,7 +47,7 @@ package com.greensock.plugins;
          {
             if(Reflect.hasField( plugins[i], "API"))
             {
-               instance = Type.createEmptyInstance(plugins[i]);
+               instance = Type.createInstance(plugins[i], new Array<Dynamic>());
                TweenLite.plugins[instance.propName] = plugins[i];
             }
          }
