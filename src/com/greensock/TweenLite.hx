@@ -266,8 +266,7 @@ throw ":TODO:";
 
       private function easeProxy(t:Float, b:Float, c:Float, d:Float) : Float
       {
-          throw ":TODO:";
-         //return this.vars.proxiedEase.apply(null,arguments.concat(this.vars.easeParams));
+        return this.vars.proxiedEase.apply(null,this.vars.easeParams);
       }
 
       override public function renderTime(time:Float, suppressEvents:Bool = false, force:Bool = false) : Void
