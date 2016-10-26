@@ -2,8 +2,6 @@ package com.greensock.easing;
    class Cubic
    {
 
-      public static inline var power:UInt = 2;
-
       public function new()
       {
       }
