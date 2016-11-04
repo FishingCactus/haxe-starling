@@ -205,11 +205,11 @@ package com.greensock;
          }
          vars.runBackwards = true;
 
-throw ":TODO:";
-         /*if(!("immediateRender" in vars))
+
+         if(!Reflect.hasField(vars, "immediateRender"))
          {
-            vars.immediateRender = true;
-        }*/
+            Reflect.setField(vars,"immediateRender",true);
+         }
          return new TweenLite(target,duration,vars);
       }
 
