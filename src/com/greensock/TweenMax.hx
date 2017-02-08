@@ -29,7 +29,7 @@ package com.greensock;
    import com.greensock.events.TweenEvent;
    import com.greensock.core.PropTween;
    import flash.events.EventDispatcher;
-   
+
    import haxe.Constraints.IMap;
 
    class TweenMax extends TweenLite implements IEventDispatcher
@@ -43,7 +43,7 @@ package com.greensock;
 		public var timeScale(get, set):Float;
 
       
-      private static var _overwriteMode:Int = !!OverwriteManager.enabled?Std.int(OverwriteManager.mode):Std.int(OverwriteManager.init(2));
+      private static var _overwriteMode:Int = OverwriteManager.enabled?Std.int(OverwriteManager.mode):Std.int(OverwriteManager.init(2));
       
       public static inline var version:Float = 11.697;
       
@@ -309,7 +309,6 @@ package com.greensock;
       
       public static function getAllTweens() : Array<TweenLite>
       {
-         var a:Array<TweenLite> = null;
          var i:Int = 0;
          var ml = TweenLite.masterList;
          var cnt:Int = 0;
@@ -340,16 +339,14 @@ package com.greensock;
       
       public static function allTo(targets:Array<Int>, duration:Float, vars:Dynamic, stagger:Float = 0, onCompleteAll:Dynamic = null, onCompleteAllParams:Array<Int> = null) : Array<TweenLite>
       {
-         var i:Int = 0;
          var varsDup:Dynamic = null;
-         var p:String = null;
          var onCompleteProxy:Dynamic = null;
          var onCompleteParamsProxy:Array<Int> = null;
          var l:Int = targets.length;
          var a:Array<TweenLite> = [];
          if(vars.isGSVars)
          {
-            var vars:Dynamic = vars.vars;
+            vars = vars.vars;
          }
          var curDelay:Float = Reflect.hasField(vars,"delay")?vars.delay:0;
          onCompleteProxy = vars.onComplete;
@@ -407,7 +404,7 @@ package com.greensock;
          var prevCycles:Int = 0;
          var power:Int = 0;
          var val:Float = Math.NaN;
-         var totalDur:Float = !!this.cacheIsDirty?this.totalDuration:this.cachedTotalDuration;
+         var totalDur:Float = this.cacheIsDirty?this.totalDuration:this.cachedTotalDuration;
          var prevTime:Float = this.cachedTime;
          var prevTotalTime:Float = this.cachedTotalTime;
          if(time >= totalDur)
@@ -625,12 +622,11 @@ package com.greensock;
       
       override private function init() : Void
       {
-         var startTween:TweenMax = null;
          if(this.vars.startAt)
          {
             this.vars.startAt.overwrite = 0;
             this.vars.startAt.immediateRender = true;
-            startTween = new TweenMax(this.target,0,this.vars.startAt);
+            new TweenMax(this.target,0,this.vars.startAt);
          }
          if(_dispatcher!=null)
          {
@@ -728,7 +724,6 @@ package com.greensock;
       
       public function updateTo(vars:Dynamic, resetDuration:Bool = false) : Void
       {
-         var p:Dynamic = null;
          var prevTime:Float = Math.NaN;
          var inv:Float = Math.NaN;
          var pt:PropTween = null;

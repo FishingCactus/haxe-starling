@@ -96,7 +96,7 @@ package com.greensock;
 
       public function new(target:Dynamic, duration:Float, vars:Dynamic)
       {
-         var sibling:TweenLite = null;
+         //var sibling:TweenLite = null;
 
          super(duration,vars);
          if(target == null)
@@ -228,7 +228,6 @@ package com.greensock;
       private static function updateAll(e:Event = null) : Void
       {
          var ml:haxe.ds.ObjectMap<Dynamic, Array<com.greensock.TweenLite>> = null;
-         var tgt:Dynamic = null;
          var a:Array<TweenLite> = null;
          var i:Int = 0;
          rootTimeline.renderTime((haxe.Timer.stamp() - rootTimeline.cachedStartTime) * rootTimeline.cachedTimeScale,false,false);
@@ -371,14 +370,13 @@ package com.greensock;
          super.setEnabled(enabled,ignoreTimeline);
          if((_notifyPluginsOfEnabled) && (this.cachedPT1 != null))
          {
-            return onPluginEvent(!!enabled?"onEnable":"onDisable",this);
+            return onPluginEvent(enabled?"onEnable":"onDisable",this);
          }
          return false;
       }
 
       private function init() : Void
       {
-         var p:Dynamic = null;
          var i:Int = 0;
          var plugin:Dynamic = null;
          var prioritize:Bool = false;
@@ -488,15 +486,14 @@ package com.greensock;
 
       public function killVars(vars:Dynamic, permanent:Bool = true)
       {
-         var p:Dynamic = null;
-         var pt:PropTween = null;
-         var changed:Bool = false;
+          throw ":TODO:";
+          var changed:Bool = false;
          if(_overwrittenProps == null)
          {
             _overwrittenProps = {};
          }
-         throw ":TODO:";
          /*
+         var pt:PropTween = null;
          for(p in vars)
          {
             if(p in propTweenLookup)

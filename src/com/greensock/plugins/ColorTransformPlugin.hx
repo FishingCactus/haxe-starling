@@ -17,7 +17,6 @@ package com.greensock.plugins;
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
          var start:ColorTransform = null;
-         var p:Dynamic = null;
          var ratio:Float = Math.NaN;
          var end:ColorTransform = new ColorTransform();
          if(Std.is(target, DisplayObject))

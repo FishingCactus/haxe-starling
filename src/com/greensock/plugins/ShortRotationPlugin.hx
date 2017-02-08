@@ -15,7 +15,6 @@ package com.greensock.plugins;
       
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
-         var p:Dynamic = null;
          if(Std.is(value, Int) || Std.is(value, Float))
          {
             return false;
@@ -33,11 +32,11 @@ package com.greensock.plugins;
       
       public function initRotation(target:Dynamic, propName:String, start:Float, end:Float, useRadians:Bool = false) : Void
       {
-         var cap:Float = !!useRadians?cast(Math.PI * 2, Float):cast(360, Float);
+         var cap:Float = useRadians?Math.PI * 2:360.0;
          var dif:Float = (end - start) % cap;
          if(dif != dif % (cap / 2))
          {
-            dif = dif < 0?cast(dif + cap, Float):cast(dif - cap, Float);
+            dif = dif < 0?dif + cap:dif - cap;
          }
          addTween(target,propName,start,start + dif,propName);
          this.overwriteProps[this.overwriteProps.length] = propName;
