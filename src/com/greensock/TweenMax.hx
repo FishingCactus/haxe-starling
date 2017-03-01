@@ -5,26 +5,6 @@ package com.greensock;
    import flash.display.DisplayObject;
    import com.greensock.core.TweenCore;
    import flash.utils.Dictionary;
-   import com.greensock.plugins.TweenPlugin;
-   import com.greensock.plugins.AutoAlphaPlugin;
-   import com.greensock.plugins.EndArrayPlugin;
-   import com.greensock.plugins.FramePlugin;
-   import com.greensock.plugins.RemoveTintPlugin;
-   import com.greensock.plugins.TintPlugin;
-   import com.greensock.plugins.VisiblePlugin;
-   import com.greensock.plugins.VolumePlugin;
-   import com.greensock.plugins.BevelFilterPlugin;
-   import com.greensock.plugins.BezierPlugin;
-   import com.greensock.plugins.BezierThroughPlugin;
-   import com.greensock.plugins.BlurFilterPlugin;
-   import com.greensock.plugins.ColorMatrixFilterPlugin;
-   import com.greensock.plugins.ColorTransformPlugin;
-   import com.greensock.plugins.DropShadowFilterPlugin;
-   import com.greensock.plugins.FrameLabelPlugin;
-   import com.greensock.plugins.GlowFilterPlugin;
-   import com.greensock.plugins.HexColorsPlugin;
-   import com.greensock.plugins.RoundPropsPlugin;
-   import com.greensock.plugins.ShortRotationPlugin;
    import flash.events.Event;
    import com.greensock.events.TweenEvent;
    import com.greensock.core.PropTween;
@@ -48,10 +28,6 @@ package com.greensock;
       public static inline var version:Float = 11.697;
       
       public static var killTweensOf:Dynamic = TweenLite.killTweensOf;
-      
-      public static function __init__ () {
-         TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin/*,{}*/]);
-      }
       
       private var _cyclesComplete:Int = 0;
       
