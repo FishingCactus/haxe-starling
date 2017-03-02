@@ -1,5 +1,25 @@
 package com.greensock.core;
 
+import com.greensock.plugins.TweenPlugin;
+import com.greensock.plugins.AutoAlphaPlugin;
+import com.greensock.plugins.EndArrayPlugin;
+import com.greensock.plugins.FramePlugin;
+import com.greensock.plugins.RemoveTintPlugin;
+import com.greensock.plugins.TintPlugin;
+import com.greensock.plugins.VisiblePlugin;
+import com.greensock.plugins.VolumePlugin;
+import com.greensock.plugins.BevelFilterPlugin;
+import com.greensock.plugins.BezierPlugin;
+import com.greensock.plugins.BezierThroughPlugin;
+import com.greensock.plugins.BlurFilterPlugin;
+import com.greensock.plugins.ColorMatrixFilterPlugin;
+import com.greensock.plugins.ColorTransformPlugin;
+import com.greensock.plugins.DropShadowFilterPlugin;
+import com.greensock.plugins.FrameLabelPlugin;
+import com.greensock.plugins.GlowFilterPlugin;
+import com.greensock.plugins.HexColorsPlugin;
+import com.greensock.plugins.RoundPropsPlugin;
+import com.greensock.plugins.ShortRotationPlugin;
 
    class TweenCore
    {
@@ -62,8 +82,15 @@ package com.greensock.core;
 
       public var cachedTotalDuration:Float;
 
+      private static var __initialized = false;
+
       public function new(duration:Float = 0, vars:Dynamic = null)
       {
+          if ( !__initialized ) {
+              TweenPlugin.activate([AutoAlphaPlugin,EndArrayPlugin,FramePlugin,RemoveTintPlugin,TintPlugin,VisiblePlugin,VolumePlugin,BevelFilterPlugin,BezierPlugin,BezierThroughPlugin,BlurFilterPlugin,ColorMatrixFilterPlugin,ColorTransformPlugin,DropShadowFilterPlugin,FrameLabelPlugin,GlowFilterPlugin,HexColorsPlugin,RoundPropsPlugin,ShortRotationPlugin/*,{}*/]);
+              __initialized = true;
+          }
+
          this.vars = vars != null?vars:{};
          if(this.vars.isGSVars)
          {
