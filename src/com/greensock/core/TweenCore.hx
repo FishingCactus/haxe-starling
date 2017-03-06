@@ -174,7 +174,7 @@ import com.greensock.plugins.ShortRotationPlugin;
       {
          this.reversed = false;
          this.paused = false;
-         this.setTotalTime(!!includeDelay?(-_delay):(0),suppressEvents);
+         this.setTotalTime(includeDelay?(-_delay):(0),suppressEvents);
       }
 
       public  function set_delay(n:Float):Float
@@ -268,7 +268,7 @@ import com.greensock.plugins.ShortRotationPlugin;
 
       private function setDirtyCache(includeSelf:Bool = true) : Void
       {
-         var tween:com.greensock.core.TweenCore = !!includeSelf?this:this.timeline;
+         var tween:com.greensock.core.TweenCore = includeSelf?this:this.timeline;
          while(tween!=null)
          {
             tween.cacheIsDirty = true;
@@ -337,10 +337,10 @@ import com.greensock.plugins.ShortRotationPlugin;
          var dur:Float = Math.NaN;
          if(this.timeline!=null)
          {
-            tlTime = !!this.cachedPaused?(this.cachedPauseTime):(this.timeline.cachedTotalTime);
+            tlTime = this.cachedPaused?(this.cachedPauseTime):(this.timeline.cachedTotalTime);
             if(this.cachedReversed)
             {
-               dur = !!this.cacheIsDirty?(this.totalDuration):(this.cachedTotalDuration);
+               dur = this.cacheIsDirty?(this.totalDuration):(this.cachedTotalDuration);
                this.cachedStartTime = tlTime - (dur - time) / this.cachedTimeScale;
             }
             else

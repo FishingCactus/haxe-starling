@@ -60,7 +60,6 @@ package com.greensock.plugins;
 
       override public function onInitTween(target:Dynamic, value:Dynamic, tween:TweenLite) : Bool
       {
-         var p:Dynamic = null;
          throw ":TODO:";
          /*
          for(p in value)

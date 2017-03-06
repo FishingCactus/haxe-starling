@@ -31,12 +31,10 @@ package com.greensock.plugins;
 
       public static function parseBeziers(props:Dynamic, through:Bool = false) : Dynamic
       {
-         var i:Int = 0;
-         var a:Array<Int> = null;
-         var b:Dynamic = null;
-         var p:Dynamic = null;
-         var all:Dynamic = {};
              throw ":TODO: Dynamic iteration";
+         //var a:Array<Int> = null;
+         //var b:Dynamic = null;
+         var all:Dynamic = {};
          if(through)
          {
              /*
@@ -176,16 +174,15 @@ package com.greensock.plugins;
       override public function set_changeFactor(n)
       {
          var i:Int = 0;
-         var p:Dynamic = null;
          var b:Dynamic = null;
          var t:Float = Math.NaN;
          var segments:Int = 0;
          var val:Float = Math.NaN;
-         var curVals:Dynamic = null;
-         var dx:Float = Math.NaN;
-         var dy:Float = Math.NaN;
-         var cotb:Array<Float> = null;
-         var toAdd:Float = Math.NaN;
+         //var curVals:Dynamic = null;
+         //var dx:Float = Math.NaN;
+         //var dy:Float = Math.NaN;
+         //var cotb:Array<Float> = null;
+         //var toAdd:Float = Math.NaN;
          var oldTarget:Dynamic = null;
          var oldRound:Bool = false;
          _changeFactor = n;
@@ -237,7 +234,7 @@ package com.greensock.plugins;
          if(_orient)
          {
             i = _orientData.length;
-            curVals = {};
+            //curVals = {};
             while(i-->0)
             {
                 throw ":TODO:";

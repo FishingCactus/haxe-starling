@@ -71,7 +71,7 @@ package com.greensock.core;
                }
                else
                {
-                  dur = !!tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
+                  dur = tween.cacheIsDirty?cast(tween.totalDuration, Float):cast(tween.cachedTotalDuration, Float);
                   tween.renderTime(dur - (time - tween.cachedStartTime) * tween.cachedTimeScale,suppressEvents,false);
                }
             }
