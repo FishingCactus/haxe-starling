@@ -124,8 +124,8 @@ class ConcreteTexture extends starling.textures.Texture
 			
 			if (mMipMapping && data.width > 1 && data.height > 1)
 			{
-				var currentWidth:Int  = data.width  >> 1;
-				var currentHeight:Int = data.height >> 1;
+				var currentWidth:Int  = Std.int(data.width)  >> 1;
+				var currentHeight:Int = Std.int(data.height) >> 1;
 				var level:Int = 1;
 				var transform:Matrix = new Matrix(.5, 0, 0, .5);
 				var bounds:Rectangle = new Rectangle();
