@@ -360,8 +360,6 @@ class VertexData
 		if (numVertices < 0 || vertexID + numVertices > mNumVertices)
 			numVertices = mNumVertices - vertexID;
 		 
-		var i:Int;
-		
 		if (mPremultipliedAlpha)
 		{
 			for (i in 0...numVertices)
@@ -404,7 +402,7 @@ class VertexData
 			var minY:Float = Math.POSITIVE_INFINITY;
 			var maxY:Float = Math.NEGATIVE_INFINITY;
 			var offset:Int = vertexID * VertexData.ELEMENTS_PER_VERTEX + VertexData.POSITION_OFFSET;
-			var x:Float, y:Float, i:Int;
+			var x:Float, y:Float;
 			
 			if (transformationMatrix == null)
 			{
@@ -475,7 +473,7 @@ class VertexData
 			var minY:Float = Math.POSITIVE_INFINITY;
 			var maxY:Float = Math.NEGATIVE_INFINITY;
 			var offset:Int = vertexID * VertexData.ELEMENTS_PER_VERTEX + VertexData.POSITION_OFFSET;
-			var x:Float, y:Float, i:Int;
+			var x:Float, y:Float;
 
 			for (i in 0...numVertices)
 			{
