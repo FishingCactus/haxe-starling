@@ -399,7 +399,7 @@ class FragmentFilter
 		}
 		
 		#if js
-			mVertexBuffer.uploadFromFloat32Array(mVertexData.rawData);
+			mVertexBuffer.uploadFromFloat32Array(mVertexData.rawData, 0, 4);
 		#else
 			mVertexBuffer.uploadFromVector(mVertexData.rawData, 0, 4);
 		#end

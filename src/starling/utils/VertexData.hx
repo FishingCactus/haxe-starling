@@ -187,10 +187,11 @@ class VertexData
 		#end
 		var rawDataLength:Int = rawData.length;
 		
+		mNumVertices += data.numVertices;
+		numVertices = mNumVertices;
+
 		for (i in 0...rawDataLength)
 			mRawData[targetIndex++] = rawData[i];
-		
-		mNumVertices += data.numVertices;
 		
 		#if !js
 			mRawData.fixed = true;
