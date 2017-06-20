@@ -603,14 +603,17 @@ class VertexData
 	{
 		#if js
 			var length:Int = value * VertexData.ELEMENTS_PER_VERTEX;
-			var a = [for (j in 0...length) 0];	
-			mRawData = new Float32Array(a);
+			var newRawData = new Float32Array(length);
+			if(mRawData != null) {
+				for(i in 0...mRawData.length){
+					newRawData[i] = mRawData[i];
+				}
+			}
+			mRawData = newRawData;
 		#else
 			mRawData.fixed = false;
 			mRawData.length = value * VertexData.ELEMENTS_PER_VERTEX;
 		#end
-		
-		
 		
 		var startIndex:Int = (mNumVertices * VertexData.ELEMENTS_PER_VERTEX) + VertexData.COLOR_OFFSET + 3;
 		var endIndex:Int = mRawData.length;
