@@ -106,9 +106,7 @@ class VertexData
 		clone.mNumVertices = numVertices;
 		
 		#if js
-			trace("FIX");
-			//clone.mRawData = mRawData.slice(vertexID * VertexData.ELEMENTS_PER_VERTEX, numVertices * VertexData.ELEMENTS_PER_VERTEX);
-			//clone.mRawData.fixed = true;
+			clone.mRawData = mRawData.subarray(vertexID * VertexData.ELEMENTS_PER_VERTEX, numVertices * VertexData.ELEMENTS_PER_VERTEX);
 		#else
 			clone.mRawData = mRawData.slice(vertexID * VertexData.ELEMENTS_PER_VERTEX, numVertices * VertexData.ELEMENTS_PER_VERTEX);
 			clone.mRawData.fixed = true;
@@ -187,8 +185,7 @@ class VertexData
 		#end
 		var rawDataLength:Int = rawData.length;
 		
-		mNumVertices += data.numVertices;
-		numVertices = mNumVertices;
+		numVertices += data.numVertices;
 
 		for (i in 0...rawDataLength)
 			mRawData[targetIndex++] = rawData[i];
