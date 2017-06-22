@@ -601,12 +601,19 @@ class VertexData
 	{
 		#if js
 			var length:Int = value * VertexData.ELEMENTS_PER_VERTEX;
-			var newRawData = new Float32Array(length);
+			var newRawData:Float32Array;
+
 			if(mRawData != null) {
-				for(i in 0...mRawData.length){
-					newRawData[i] = mRawData[i];
+				if(mNumVertices < value) {
+					newRawData = new Float32Array(length);
+					newRawData.set(mRawData);
+				} else {
+					newRawData = mRawData.subarray(0, length);
 				}
+			} else {
+				newRawData = new Float32Array(length);
 			}
+
 			mRawData = newRawData;
 		#else
 			mRawData.fixed = false;
