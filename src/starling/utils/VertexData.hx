@@ -106,7 +106,8 @@ class VertexData
 		clone.mNumVertices = numVertices;
 		
 		#if js
-			clone.mRawData = mRawData.subarray(vertexID * VertexData.ELEMENTS_PER_VERTEX, numVertices * VertexData.ELEMENTS_PER_VERTEX);
+			var startIndex = vertexID * VertexData.ELEMENTS_PER_VERTEX;
+			clone.mRawData = mRawData.subarray(startIndex, startIndex + numVertices * VertexData.ELEMENTS_PER_VERTEX);
 		#else
 			clone.mRawData = mRawData.slice(vertexID * VertexData.ELEMENTS_PER_VERTEX, numVertices * VertexData.ELEMENTS_PER_VERTEX);
 			clone.mRawData.fixed = true;
