@@ -337,10 +337,6 @@ class Starling extends EventDispatcher
 		sContextData[stage3D] = new Map<String, Map<String, Dynamic>>();
 		sContextData[stage3D][PROGRAM_DATA_NAME] = new Map<String, Dynamic>();
 
-		// all other modes are problematic in Starling, so we force those here
-		stage.scaleMode = StageScaleMode.NO_SCALE;
-		stage.align = StageAlign.TOP_LEFT;
-		
 		// register touch/mouse event handlers            
 		for (touchEventType in touchEventTypes) {
 			stage.addEventListener(touchEventType, onTouch, false, 0, true);
