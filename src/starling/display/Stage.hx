@@ -20,6 +20,7 @@ import starling.core.RenderSupport;
 import starling.core.Starling;
 import starling.events.EnterFrameEvent;
 import starling.events.Event;
+import starling.events.ResizeEvent;
 import starling.filters.FragmentFilter;
 import starling.utils.MatrixUtil;
 
@@ -98,6 +99,7 @@ class Stage extends DisplayObjectContainer
 		mCameraPosition = new Vector3D();
 		mEnterFrameEvent = new EnterFrameEvent(Event.ENTER_FRAME, 0.0);
 		mEnterFrameListeners = new Array<DisplayObject>();
+		addEventListener(Event.RESIZE, onResize);
 	}
 	
 	/** @inheritDoc */
@@ -220,6 +222,10 @@ class Stage extends DisplayObjectContainer
 		return listeners;
 	}
 	
+	private function onResize(event:ResizeEvent) {
+		stageWidth = event.width;
+		stageHeight = event.height;
+	}
 	// properties
 	
 	/** @private */

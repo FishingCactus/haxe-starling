@@ -625,7 +625,7 @@ class Starling extends EventDispatcher
 			// mode, that's not necessary, but it does not hurt either.)
 			
 			mClippedViewPort = mViewPort.intersection(
-				new Rectangle(0, 0, mNativeStage.stageWidth, mNativeStage.stageHeight));
+				new Rectangle(0, 0, mNativeStage.stageWidth * mNativeStage.scaleX, mNativeStage.stageHeight * mNativeStage.scaleY));
 			
 			if (!mShareContext)
 			{
@@ -789,8 +789,8 @@ class Starling extends EventDispatcher
 	
 	private function onResize(event:Event):Void
 	{
-		stageWidth  = event.target.stageWidth;
-		stageHeight = event.target.stageHeight;
+		stageWidth  = Std.int(event.target.stageWidth * cast(event.target, openfl.display.Stage).scaleX);
+		stageHeight = Std.int(event.target.stageHeight * cast(event.target, openfl.display.Stage).scaleY);
 
 		if (contextValid)
 			dispatchResizeEvent();
