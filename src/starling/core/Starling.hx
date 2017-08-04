@@ -665,8 +665,13 @@ class Starling extends EventDispatcher
 	{
 		mNativeOverlay.x = mViewPort.x;
 		mNativeOverlay.y = mViewPort.y;
+		var oldScaleX = mNativeOverlay.scaleX;
+		var oldScaleY = mNativeOverlay.scaleY;
 		mNativeOverlay.scaleX = mViewPort.width / mStage.stageWidth;
 		mNativeOverlay.scaleY = mViewPort.height / mStage.stageHeight;
+		if ( mNativeOverlay.scaleX != oldScaleX || mNativeOverlay.scaleY != oldScaleY ) {
+			mNativeOverlay.stage.__updateDirtyElements(true,true);
+		}
 	}
 	
 	/** Stops Starling right away and displays an error message on the native overlay.
