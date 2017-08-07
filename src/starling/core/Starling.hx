@@ -625,7 +625,7 @@ class Starling extends EventDispatcher
 			// mode, that's not necessary, but it does not hurt either.)
 			
 			mClippedViewPort = mViewPort.intersection(
-				new Rectangle(0, 0, mNativeStage.stageWidth, mNativeStage.stageHeight));
+				new Rectangle(0, 0, mNativeStage.stageWidth * mNativeStage.scaleX, mNativeStage.stageHeight * mNativeStage.scaleY));
 			
 			if (!mShareContext)
 			{
@@ -663,7 +663,9 @@ class Starling extends EventDispatcher
 
 	private function updateNativeOverlay():Void
 	{
-		mNativeOverlay.x = mViewPort.x;
+		// :NOTE: Starling should not be responsible of updating the native overlay. Handled in the stage!
+
+		/*mNativeOverlay.x = mViewPort.x;
 		mNativeOverlay.y = mViewPort.y;
 		var oldScaleX = mNativeOverlay.scaleX;
 		var oldScaleY = mNativeOverlay.scaleY;
@@ -671,7 +673,7 @@ class Starling extends EventDispatcher
 		mNativeOverlay.scaleY = mViewPort.height / mStage.stageHeight;
 		if ( mNativeOverlay.scaleX != oldScaleX || mNativeOverlay.scaleY != oldScaleY ) {
 			mNativeOverlay.stage.__updateDirtyElements(true,true);
-		}
+		}*/
 	}
 	
 	/** Stops Starling right away and displays an error message on the native overlay.
