@@ -883,8 +883,8 @@ class Starling extends EventDispatcher
 		}
 		
 		// move position into viewport bounds
-		globalX = mStage.stageWidth  * (globalX - mViewPort.x) / mViewPort.width;
-		globalY = mStage.stageHeight * (globalY - mViewPort.y) / mViewPort.height;
+		globalX = (mNativeStage.stageWidth * mNativeStage.scaleX)  * (globalX - mViewPort.x) / mViewPort.width;
+		globalY = (mNativeStage.stageHeight * mNativeStage.scaleY) * (globalY - mViewPort.y) / mViewPort.height;
 		
 		
 		// enqueue touch in touch processor
