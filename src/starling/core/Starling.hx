@@ -611,43 +611,8 @@ class Starling extends EventDispatcher
 	
 	private function updateViewPort(forceUpdate:Bool=false):Void
 	{
-		// the last set viewport is stored in a variable; that way, people can modify the
-		// viewPort directly (without a copy) and we still know if it has changed.
-		
-		if (forceUpdate || mPreviousViewPort.width != mViewPort.width || 
-			mPreviousViewPort.height != mViewPort.height ||
-			mPreviousViewPort.x != mViewPort.x || mPreviousViewPort.y != mViewPort.y)
-		{
-			mPreviousViewPort.setTo(mViewPort.x, mViewPort.y, mViewPort.width, mViewPort.height);
-			
-			// Constrained mode requires that the viewport is within the native stage bounds;
-			// thus, we use a clipped viewport when configuring the back buffer. (In baseline
-			// mode, that's not necessary, but it does not hurt either.)
-			
-			mClippedViewPort = mViewPort.intersection(
-				new Rectangle(0, 0, mNativeStage.stageWidth * mNativeStage.scaleX, mNativeStage.stageHeight * mNativeStage.scaleY));
-			
-			if (!mShareContext)
-			{
-				// setting x and y might move the context to invalid bounds (since changing
-				// the size happens in a separate operation) -- so we have no choice but to
-				// set the backbuffer to a very small size first, to be on the safe side.
-				
-				if (mProfile == Context3DProfile.BASELINE_CONSTRAINED)
-					configureBackBuffer(32, 32, mAntiAliasing, true);
-				
-				mStage3D.x = mClippedViewPort.x;
-				mStage3D.y = mClippedViewPort.y;
-				
-				configureBackBuffer(Std.int(mClippedViewPort.width), Std.int(mClippedViewPort.height),
-					mAntiAliasing, true, mSupportHighResolutions);
-				
-				if (mSupportHighResolutions && Reflect.hasField(mNativeStage, "contentsScaleFactor"))
-					mNativeStageContentScaleFactor = Reflect.getProperty(mNativeStage, "contentsScaleFactor");// mNativeStage["contentsScaleFactor"];
-				else
-					mNativeStageContentScaleFactor = 1.0;
-			}
-		}
+		// :TODO: No clip supported, only the full viewPort is used.
+		mClippedViewPort = mViewPort;
 	}
 	
 	/** Configures the back buffer while automatically keeping backwards compatibility with
