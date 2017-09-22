@@ -112,7 +112,10 @@ class ConcreteTexture extends starling.textures.Texture
 		if (data.width != mWidth || data.height != mHeight)
 		{
 			potData = new BitmapData(mWidth, mHeight, true, 0);
-			potData.copyPixels(data, data.rect, sOrigin);
+			var rect = Rectangle.pool.get();
+			@:privateAccess data.getPhysicalRect(rect);
+			potData.copyPixels(data, rect, sOrigin);
+			Rectangle.pool.put(rect);
 			data = potData;
 		}
 		
