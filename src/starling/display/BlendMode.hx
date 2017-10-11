@@ -159,7 +159,7 @@ class BlendMode
 	/** Registeres a blending mode under a certain name and for a certain premultiplied alpha
 	 *  (pma) value. If the mode for the other pma value was not yet registered, the factors are
 	 *  used for both pma settings. */
-	public static function register(name:String, sourceFactor:String, destFactor:String,
+	public static function register(name:String, sourceFactor:Int, destFactor:Int,
 									premultipliedAlpha:Bool=true):Void
 	{
 		var vec:Array<Map<String, BlendFactor>> = BlendMode.sBlendFactors;
