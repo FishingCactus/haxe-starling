@@ -36,18 +36,18 @@ class TouchPhase
 	
 	/** Only available for mouse input: the cursor hovers over an object <em>without</em> a 
 	 *  pressed button. */
-	public static var HOVER:String = "hover";
+	public inline static var HOVER:String = "hover";
 	
 	/** The finger touched the screen just now, or the mouse button was pressed. */
-	public static var BEGAN:String = "began";
+	public inline static var BEGAN:String = "began";
 	
 	/** The finger moves around on the screen, or the mouse is moved while the button is 
 	 *  pressed. */
-	public static var MOVED:String = "moved";
+	public inline static var MOVED:String = "moved";
 	
 	/** The finger or mouse (with pressed button) has not moved since the last frame. */
-	public static var STATIONARY:String = "stationary";
+	public inline static var STATIONARY:String = "stationary";
 	
 	/** The finger was lifted from the screen or from the mouse button. */
-	public static var ENDED:String = "ended";
+	public inline static var ENDED:String = "ended";
 }
