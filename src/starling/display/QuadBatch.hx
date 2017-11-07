@@ -10,6 +10,7 @@
 
 package starling.display;
 
+import Std;
 import openfl.display3D.Context3D;
 import openfl.display3D.Context3DProgramType;
 import openfl.display3D.Context3DTextureFormat;
@@ -557,10 +558,13 @@ class QuadBatch extends DisplayObject
 		var quadBatch:QuadBatch;
 		var isRootObject:Bool = false;
 		var objectAlpha:Float = object.alpha;
-		
-		var container:DisplayObjectContainer = cast object;
-		var quad:Quad = cast object;
-		var batch:QuadBatch = cast object;
+
+
+        var container:DisplayObjectContainer = Std.is(object, DisplayObjectContainer) ? cast object : null;
+        var quad:Quad = Std.is(object, Quad) ? cast object : null;
+		var batch:QuadBatch = Std.is(object, QuadBatch) ? cast object : null;
+        var image:Image = Std.is(object, Image) ? cast quad : null;
+
 		var filter:FragmentFilter = object.filter;
 
 		if (quadBatchID == -1)
@@ -601,7 +605,7 @@ class QuadBatch extends DisplayObject
 		}
 		else if (container != null)
 		{
-			var numChildren:Int = container.numChildren;
+            var numChildren:Int = container.numChildren;
 			var childMatrix:Matrix = new Matrix();
 			
 			for (i in 0...numChildren)
@@ -627,7 +631,6 @@ class QuadBatch extends DisplayObject
 			
 			if (quad != null)
 			{
-				var image:Image = cast quad;
 				texture = image != null ? image.texture : null;
 				smoothing = image != null ? image.smoothing : null;
 				tinted = quad.tinted;
