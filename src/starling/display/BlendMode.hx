@@ -10,7 +10,6 @@
 
 package starling.display;
 
-import feathers.core.IToggle;
 import openfl.display3D.Context3DBlendFactor;
 import openfl.errors.ArgumentError;
 
