@@ -99,7 +99,7 @@ class ConcreteTexture extends starling.textures.Texture
 	 *  cropped or filled up with transparent pixels */
 	public function uploadBitmap(bitmap:Bitmap):Void
 	{
-		uploadBitmapData(bitmap.bitmapData);
+		uploadBitmapData(cast(bitmap.bitmapData, BitmapData));
 	}
 	
 	/** Uploads bitmap data to the texture. The existing contents will be replaced.

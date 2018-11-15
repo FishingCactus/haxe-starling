@@ -254,7 +254,7 @@ class Texture
 									  repeat:Bool=false):Texture
 	{
 		if (format == null) format = Context3DTextureFormat.BGRA;
-		return fromBitmapData(bitmap.bitmapData, generateMipMaps, optimizeForRenderToTexture,
+		return fromBitmapData(cast(bitmap.bitmapData, BitmapData), generateMipMaps, optimizeForRenderToTexture,
 							  scale, format, repeat);
 	}
 
